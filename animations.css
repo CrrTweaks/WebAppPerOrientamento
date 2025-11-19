@@ -1,0 +1,66 @@
+/* animations.css - ultra-smooth page transitions (mobile-first) */
+:root{
+  --ui-duration: 360ms;
+  --fast-duration: 180ms;
+  --ease: cubic-bezier(.2,.9,.3,1);
+}
+
+.page {
+  transition: opacity var(--ui-duration) var(--ease),
+              transform var(--ui-duration) var(--ease);
+  will-change: opacity, transform;
+}
+
+/* initial hidden style (kept for tailwind compat but we animate explicitly) */
+.page.page-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+/* visible state */
+.page.page-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* outgoing animation (fade up & slightly shrink) */
+.page.pt-anim-out {
+  opacity: 0;
+  transform: translateY(-8px) scale(.995);
+  pointer-events: none;
+}
+
+/* incoming pre-state (starting point) */
+.page.pt-anim-in {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+/* header title animation */
+#mobile-header-title {
+  display: inline-block;
+  transition: opacity var(--fast-duration) var(--ease), transform var(--fast-duration) var(--ease);
+}
+#mobile-header-title.title-fade-out {
+  opacity: 0;
+  transform: translateY(-6px) scale(.98);
+}
+#mobile-header-title.title-fade-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* subtle tappable feedback (mobile) */
+.card-touch {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--fast-duration) var(--ease), box-shadow var(--fast-duration) var(--ease);
+  will-change: transform, box-shadow;
+}
+.card-touch:active { transform: scale(.994); }
+
+/* overlay for mobile menu if you want to add it (optionale) */
+#mobile-overlay { transition: opacity var(--ui-duration) var(--ease); }
+#mobile-overlay.show { opacity: 1; pointer-events: auto; }
