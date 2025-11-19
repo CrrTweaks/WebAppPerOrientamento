@@ -49,6 +49,8 @@ function navigateSidebar(page) {
   // Mostra la pagina
   showPage(page);
 
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   // Salva la pagina corrente
   sessionStorage.setItem("currentPage", page);
 
