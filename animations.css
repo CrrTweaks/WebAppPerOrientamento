@@ -1,13 +1,13 @@
 /* animations.css - ultra-smooth page transitions (mobile-first) */
-:root{
+:root {
   --ui-duration: 360ms;
   --fast-duration: 180ms;
-  --ease: cubic-bezier(.2,.9,.3,1);
+  --ease: cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .page {
   transition: opacity var(--ui-duration) var(--ease),
-              transform var(--ui-duration) var(--ease);
+    transform var(--ui-duration) var(--ease);
   will-change: opacity, transform;
 }
 
@@ -28,7 +28,7 @@
 /* outgoing animation (fade up & slightly shrink) */
 .page.pt-anim-out {
   opacity: 0;
-  transform: translateY(-8px) scale(.995);
+  transform: translateY(-8px) scale(0.995);
   pointer-events: none;
 }
 
@@ -42,11 +42,12 @@
 /* header title animation */
 #mobile-header-title {
   display: inline-block;
-  transition: opacity var(--fast-duration) var(--ease), transform var(--fast-duration) var(--ease);
+  transition: opacity var(--fast-duration) var(--ease),
+    transform var(--fast-duration) var(--ease);
 }
 #mobile-header-title.title-fade-out {
   opacity: 0;
-  transform: translateY(-6px) scale(.98);
+  transform: translateY(-6px) scale(0.98);
 }
 #mobile-header-title.title-fade-in {
   opacity: 1;
@@ -56,11 +57,19 @@
 /* subtle tappable feedback (mobile) */
 .card-touch {
   -webkit-tap-highlight-color: transparent;
-  transition: transform var(--fast-duration) var(--ease), box-shadow var(--fast-duration) var(--ease);
+  transition: transform var(--fast-duration) var(--ease),
+    box-shadow var(--fast-duration) var(--ease);
   will-change: transform, box-shadow;
 }
-.card-touch:active { transform: scale(.994); }
+.card-touch:active {
+  transform: scale(0.994);
+}
 
 /* overlay for mobile menu if you want to add it (optionale) */
-#mobile-overlay { transition: opacity var(--ui-duration) var(--ease); }
-#mobile-overlay.show { opacity: 1; pointer-events: auto; }
+#mobile-overlay {
+  transition: opacity var(--ui-duration) var(--ease);
+}
+#mobile-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}

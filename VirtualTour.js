@@ -1,6 +1,9 @@
 // Panellum full screen con scene e hotspot
 let fullViewer;
+
+// Biennio e Triennio
 const panoramas = {
+  // Corridoi e laboratori Triennio
   CorridoioLabSopra2: {
     type: "equirectangular",
     panorama:
@@ -63,6 +66,13 @@ const panoramas = {
         text: "Vai al Corridio2",
         sceneId: "CorridoioLabSopra2",
       },
+      {
+        pitch: 20,
+        yaw: -20,
+        createTooltipFunc: hotspotDiv,
+        createTooltipArgs:
+          "Eccoci al piano superiore. Sulla destra troverai 4 laboratori specializzati.",
+      },
     ],
   },
   CorridoioLabSotto2: {
@@ -95,8 +105,8 @@ const panoramas = {
         pitch: -7,
         yaw: -10,
         type: "scene",
-        text: "Vai Al Laboratorio boh",
-        sceneId: "",
+        text: "Vai Al Laboratorio di Proggettazione Elettrotecnica",
+        sceneId: "Laboratorio_Progettazione_Elettrotecnica",
       },
       {
         pitch: -7,
@@ -106,11 +116,18 @@ const panoramas = {
         sceneId: "",
       },
       {
-        pitch: -3,
-        yaw: -152,
+        pitch: -2,
+        yaw: -153,
         type: "scene",
-        text: "Vai Al Ingresso",
+        text: "Torna all'ingresso dei laboratori",
         sceneId: "ingresso_Lab",
+      },
+      {
+        pitch: 30,
+        yaw: -10,
+        createTooltipFunc: hotspotDiv,
+        createTooltipArgs:
+          "Qui troverai 4 laboratori specializzati. Ed la possibilità di salire al piano superiore.",
       },
     ],
   },
@@ -219,24 +236,47 @@ const panoramas = {
       },
     ],
   },
+  Laboratorio_Progettazione_Elettrotecnica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioProgettazioneElettrotecnica.jpg",
+    hotSpots: [
+      {
+        pitch: -3,
+        yaw: 0,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabSotto2",
+      },
+    ],
+  },
   ingresso_Lab: {
     type: "equirectangular",
     panorama:
       "/img/fotoPanoramiche/triennio/CorridoiLabTriennio/CorridoioLabSotto1.jpg",
     hotSpots: [
       {
-        pitch: -3,
-        yaw: 595,
+        pitch: -1,
+        yaw: -55,
         type: "scene",
         text: "Avanza",
         sceneId: "CorridoioLabSotto2",
       },
+      {
+        pitch: 0,
+        yaw: 0,
+        createTooltipFunc: hotspotDiv,
+        createTooltipArgs:
+          "Benvenuti nei laboratori del Triennio. Avanza per esplorarli!",
+      },
     ],
   },
-  Esterno: {
+
+  // Ingresso Principale Triennio
+  Entrata_Principale_Triennio: {
     type: "equirectangular",
     panorama:
-      "/img/fotoPanoramiche/triennio/PrincipaleTriennio/EntrataPrincipale.JPG",
+      "/img/fotoPanoramiche/triennio/PrincipaleTriennio/EntrataPrincipale.jpg",
     autoLoad: true,
     hotSpots: [
       {
@@ -248,14 +288,8 @@ const panoramas = {
       },
     ],
   },
-  Ingresso: {
-    type: "equirectangular",
-    panorama: "/img/fotoPanoramiche/triennio/PrincipaleTriennio/Ingresso.JPG",
-    hotSpots: [
-      { pitch: 1, yaw: 200, type: "scene", text: "Esci", sceneId: "Esterno" },
-    ],
-  },
 
+  // Ingresso Principale Biennio e corridoi e laboratori
   CorridoioLabFisicaRobotica: {
     type: "equirectangular",
     panorama:
@@ -533,4 +567,9 @@ function closePanorama() {
     fullViewer = null;
   }
   document.getElementById("panorama-full").classList.add("hidden");
+}
+
+function hotspotDiv(hotSpotDiv, args) {
+  hotSpotDiv.classList.add("custom-tooltip");
+  hotSpotDiv.innerHTML = args;
 }

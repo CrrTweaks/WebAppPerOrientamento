@@ -21,6 +21,7 @@ function showPage(page) {
     triennio_page: "Sede Triennio",
     indirizzi_studio: "Indirizzi di Studio",
     progetti: "Progetti & Attività",
+    eventi: "Eventi",
     dove_siamo: "Dove siamo",
     social: "Social",
     sito_web: "Sito Web",

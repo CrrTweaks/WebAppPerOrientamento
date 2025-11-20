@@ -1,562 +1,1099 @@
 <!DOCTYPE html>
 <html lang="it">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>I.I.S. G. Marconi</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Panellum 360° -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 
     <style>
-        body { font-family: "Poppins", sans-serif; }
-        @keyframes fadeIn { 0% { opacity:0; transform:translateY(10px); } 100% { opacity:1; transform:translateY(0); } }
-        .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
+      body {
+        font-family: "Poppins", sans-serif;
+      }
 
-        .sidebar-active {
-        background: rgba(255,255,255,0.15);
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fadeIn {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .sidebar-active {
+        background: rgba(255, 255, 255, 0.15);
         border-left: 4px solid #38bdf8;
         font-weight: 600;
-        }
+      }
+
+      /* Solo per i tooltip personalizzati */
+      .custom-tooltip {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        color: rgb(0, 0, 0) !important;
+        padding: 10px !important;
+        border-radius: 5px !important;
+        font-size: 14px !important;
+        width: 150px !important;
+        height: auto !important;
+        text-align: center !important;
+        pointer-events: none !important;
+        background-image: none !important;
+      }
     </style>
 
-    <link rel="stylesheet" href="animations.css">
-</head>
+    <link rel="stylesheet" href="animations.css" />
+  </head>
 
-<body class="bg-gray-100 flex flex-col md:flex-row">
-
+  <body class="bg-gray-100 flex flex-col md:flex-row">
     <!-- MOBILE HEADER -->
-    <header class="md:hidden bg-blue-900 text-white flex items-center justify-between p-4 fixed top-0 left-0 w-full z-50">
-        <div class="flex items-center gap-3">
-            <a onclick="navigateSidebar('home')" ><img src="/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg" alt="Torna alla Home" class="h-10 w-10 object-contain rounded-lg"></a>
-            <h1 id="mobile-header-title" class="text-lg font-semibold">Home</h1>
-        </div>
-        <button id="mobile-menu-button" class="text-white text-2xl">☰</button>
+    <header
+      class="md:hidden bg-blue-900 text-white flex items-center justify-between p-4 fixed top-0 left-0 w-full z-50"
+    >
+      <div class="flex items-center gap-3">
+        <a onclick="navigateSidebar('home')"
+          ><img
+            src="/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg"
+            alt="Torna alla Home"
+            class="h-10 w-10 object-contain rounded-lg"
+        /></a>
+        <h1 id="mobile-header-title" class="text-lg font-semibold">Home</h1>
+      </div>
+      <button id="mobile-menu-button" class="text-white text-2xl">☰</button>
     </header>
 
-
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="fixed top-0 left-0 z-50 w-64 bg-blue-900 text-white min-h-screen p-6 space-y-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
-        <h1 class="text-2xl font-semibold mb-6 text-center md:text-left">I.I.S. G. Marconi</h1>
-        <button id="btn-home" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('home')">🏠 — Home</button>
-        <button id="btn-indirizzi_studio" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('indirizzi_studio')">🎓 — Indirizzi di Studio</button>
-        <button id="btn-progetti" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('progetti')">🚀 — Progetti & Attività</button>
-        <button id="btn-virtual_tour" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('virtual_tour')">🏫 — Virtual Tour</button>
-        <button id="btn-dove_siamo" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('dove_siamo')">🗺️ — Dove siamo</button>
-        <button id="btn-social" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('social')">🌐 — Social</button>
-        <button id="btn-sito_web" class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition" onclick="navigateSidebar('sito_web')">🕸️ — Sito Web</button>
+    <aside
+      id="sidebar"
+      class="fixed top-0 left-0 z-50 w-64 bg-blue-900 text-white min-h-screen p-6 space-y-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300"
+    >
+      <h1 class="text-2xl font-semibold mb-6 text-center md:text-left">
+        I.I.S. G. Marconi
+      </h1>
+      <button
+        id="btn-home"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('home')"
+      >
+        🏠 — Home
+      </button>
+      <button
+        id="btn-indirizzi_studio"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('indirizzi_studio')"
+      >
+        🎓 — Indirizzi di Studio
+      </button>
+      <button
+        id="btn-progetti"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('progetti')"
+      >
+        🚀 — Progetti & Attività
+      </button>
+      <button
+        id="btn-virtual_tour"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('virtual_tour')"
+      >
+        🏫 — Virtual Tour
+      </button>
+      <button
+        id="btn-eventi"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('eventi')"
+      >
+        📅 — Eventi
+      </button>
+      <button
+        id="btn-dove_siamo"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('dove_siamo')"
+      >
+        🗺️ — Dove siamo
+      </button>
+      <button
+        id="btn-social"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('social')"
+      >
+        🌐 — Social
+      </button>
+      <button
+        id="btn-sito_web"
+        class="sidebar-btn w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
+        onclick="navigateSidebar('sito_web')"
+      >
+        🕸️ — Sito Web
+      </button>
     </aside>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-1 bg-gradient-to-br from-blue-500 to-blue-900 min-h-screen flex justify-center items-start p-6 text-white md:ml-64">
-        <div class="w-full max-w-5xl text-center">
+    <main
+      class="flex-1 bg-gradient-to-br from-blue-500 to-blue-900 min-h-screen flex justify-center items-start p-6 text-white md:ml-64"
+    >
+      <div class="w-full max-w-5xl text-center">
+        <!-- HOME -->
+        <div
+          id="page-home"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <!-- HERO -->
+          <div
+            class="relative w-full max-w-full sm:max-w-5xl mx-auto text-center px-4 sm:px-0"
+          >
+            <!-- glow -->
+            <div
+              class="absolute inset-0 blur-3xl opacity-30 bg-gradient-to-br from-cyan-400 to-blue-600 -z-10"
+            ></div>
 
-            <!-- HOME -->
-            <div id="page-home" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
+            <h1
+              class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white drop-shadow-2xl tracking-tight leading-tight"
+            >
+              Benvenuto all'
+              <span class="text-cyan-300">I.I.S. G. Marconi</span>
+            </h1>
 
-                <!-- HERO -->
-                <div class="relative w-full max-w-full sm:max-w-5xl mx-auto text-center px-4 sm:px-0">
+            <p
+              class="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-full sm:max-w-3xl mx-auto mt-6 leading-relaxed"
+            >
+              Una modalita innovativa, immersiva e coinvolgente per scoprire la
+              nostra scuola, i laboratori, gli ambienti e i progetti che ci
+              distinguono.
+            </p>
+          </div>
 
-                    <!-- glow -->
-                    <div class="absolute inset-0 blur-3xl opacity-30 bg-gradient-to-br from-cyan-400 to-blue-600 -z-10"></div>
+          <!-- CARD -->
+          <div
+            class="mt-16 sm:mt-20 bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl rounded-3xl p-6 sm:p-12 max-w-full sm:max-w-4xl mx-auto text-center transition duration-300 hover:shadow-[0_0_40px_rgba(0,200,255,0.3)]"
+          >
+            <h3
+              class="text-2xl sm:text-4xl font-semibold text-white mb-4 tracking-tight"
+            >
+              Un'Esplorazione Virtuale del nostro istituto
+            </h3>
+            <p class="text-blue-200 text-sm sm:text-lg leading-relaxed">
+              Naviga tra corridoi virtuali, laboratori tecnici, aule speciali e
+              spazi comuni. La nostra Web App raccoglie tutto ciò che serve per
+              conoscere l'istituto, utilizzando tecnologie digitali ed
+              interattive.
+            </p>
+          </div>
 
-                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white drop-shadow-2xl tracking-tight leading-tight">
-                        Benvenuto all'
-                        <span class="text-cyan-300">I.I.S. G. Marconi</span>
-                    </h1>
-
-                    <p class="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-full sm:max-w-3xl mx-auto mt-6 leading-relaxed">
-                        Una modalita innovativa, immersiva e coinvolgente per scoprire la nostra scuola,
-                        i laboratori, gli ambienti e i progetti che ci distinguono.
-                    </p>
-                </div>
-
-                <!-- CARD -->
-                <div class="mt-16 sm:mt-20 bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl rounded-3xl p-6 sm:p-12 max-w-full sm:max-w-4xl mx-auto text-center transition duration-300 hover:shadow-[0_0_40px_rgba(0,200,255,0.3)]">
-                    <h3 class="text-2xl sm:text-4xl font-semibold text-white mb-4 tracking-tight">
-                        Un'Esplorazione Virtuale del nostro istituto
-                    </h3>
-                    <p class="text-blue-200 text-sm sm:text-lg leading-relaxed">
-                        Naviga tra corridoi virtuali, laboratori tecnici, aule speciali e spazi comuni.
-                        La nostra Web App raccoglie tutto ciò che serve per conoscere l'istituto,
-                        utilizzando tecnologie digitali ed interattive.
-                    </p>
-                </div>
-
-                <!-- SEZIONI -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 mt-12 sm:mt-20 max-w-full sm:max-w-6xl w-full px-4">
-                    
-                    <div onclick="navigateSidebar('virtual_tour')" class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer">
-                        <div class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition">🌍</div>
-                        <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">Virtual Tour</h4>
-                        <p class="text-blue-100 text-sm sm:text-base opacity-90">
-                            Fai un tour virtuale del nostro istituto grazie a fotografie panoramiche immersive a 360°.
-                        </p>
-                    </div>
-
-                    <div onclick="navigateSidebar('indirizzi_studio')" class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer">
-                        <div class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition">📘</div>
-                        <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">Indirizzi</h4>
-                        <p class="text-blue-100 text-sm sm:text-base opacity-90">
-                            Una panoramica completa sui percorsi offerti dall'istituto.
-                        </p>
-                    </div>
-
-                    <div onclick="navigateSidebar('progetti')" class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer">
-                        <div class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition">🚀</div>
-                        <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">Progetti</h4>
-                        <p class="text-blue-100 text-sm sm:text-base opacity-90">
-                            Innovazione, competizioni, robotica e molto altro.
-                        </p>
-                    </div>
-
-                    <div class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer">
-                        <div class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition">📅</div>
-                        <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">Eventi</h4>
-                        <p class="text-blue-100 text-sm sm:text-base opacity-90">
-                            Open day, conferenze e attività didattiche speciali.
-                        </p>
-                    </div>
-
-                    <div class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer">
-                        <div class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition">🖼️</div>
-                        <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">Galleria</h4>
-                        <p class="text-blue-100 text-sm sm:text-base opacity-90">
-                            Momenti, ambienti, attività e ricordi della vita scolastica.
-                        </p>
-                    </div>
-
-                </div>
+          <!-- SEZIONI -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 mt-12 sm:mt-20 max-w-full sm:max-w-6xl w-full px-4"
+          >
+            <div
+              onclick="navigateSidebar('virtual_tour')"
+              class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer"
+            >
+              <div
+                class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition"
+              >
+                🌍
+              </div>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                Virtual Tour
+              </h4>
+              <p class="text-blue-100 text-sm sm:text-base opacity-90">
+                Fai un tour virtuale del nostro istituto grazie a fotografie
+                panoramiche immersive a 360°.
+              </p>
             </div>
 
-
-            <!-- Virtual Tour -->
-            <div id="page-virtual_tour" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-                <div class="flex flex-wrap justify-center gap-8 w-full max-w-5xl p-4">
-                    <div class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center" onclick="showPage('biennio_page')">
-                        <img src="/img/fotoPlessi/Foto_plesso_biennio.png" alt="biennio" class="w-full h-60 object-cover rounded-2xl mb-4">
-                        <div class="text-2xl font-semibold text-white mb-1">Sede Biennio</div>
-                        <div class="text-blue-100 text-sm">Entra nel tour della sede biennio.</div>
-                    </div>
-                    <div class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center" onclick="showPage('triennio_page')">
-                        <img src="/img/fotoPlessi/Foto_plesso_triennio.jpg" alt="triennio" class="w-full h-60 object-cover rounded-2xl mb-4">
-                        <div class="text-2xl font-semibold text-white mb-1">Sede Centrale (Triennio)</div>
-                        <div class="text-blue-100 text-sm">Entra nel tour della sede centrale.</div>
-                    </div>
-                </div>
+            <div
+              onclick="navigateSidebar('indirizzi_studio')"
+              class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer"
+            >
+              <div
+                class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition"
+              >
+                📘
+              </div>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                Indirizzi
+              </h4>
+              <p class="text-blue-100 text-sm sm:text-base opacity-90">
+                Una panoramica completa sui percorsi offerti dall'istituto.
+              </p>
             </div>
 
-            <!-- Biennio Page -->
-            <div id="page-biennio_page" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-                <div class="flex flex-wrap justify-center gap-8 max-w-6xl w-full px-4">
-
-                    <!-- Ingresso principale -->
-                    <div class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center" onclick="loadPanoramaFull('ingresso_Biennio')">
-                        <img src="/img/fotoPlessi/Foto_plesso_biennio.png" alt="ingresso" class="w-full h-48 object-cover rounded-2xl mb-4">
-                        <div class="text-2xl font-semibold text-white mb-1">Ingresso principale Biennio</div>
-                        <div class="text-blue-100 text-sm">Visita l'ingresso principale e naviga tra le varie aree dalla scena 360°.</div>
-                    </div>
-
-                    <!-- Bottone per tornare indietro -->
-                    <button class="w-full py-3 my-2 bg-blue-800/50 hover:bg-blue-600 text-white border border-blue-700 shadow-lg rounded-lg font-semibold transition" onclick="showPage('virtual_tour')">
-                        Torna alla scelta
-                    </button>
-                </div>
+            <div
+              onclick="navigateSidebar('progetti')"
+              class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer"
+            >
+              <div
+                class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition"
+              >
+                🚀
+              </div>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                Progetti
+              </h4>
+              <p class="text-blue-100 text-sm sm:text-base opacity-90">
+                Innovazione, competizioni, robotica e molto altro.
+              </p>
             </div>
+
+            <div
+              class="group relative bg-white/10 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/20 shadow-xl transition duration-300 hover:bg-white/20 hover:shadow-[0_0_45px_rgba(0,200,255,0.25)] cursor-pointer"
+            >
+              <div
+                class="text-5xl sm:text-6xl mb-4 group-hover:scale-110 transition"
+              >
+                📅
+              </div>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                Eventi
+              </h4>
+              <p class="text-blue-100 text-sm sm:text-base opacity-90">
+                Open day, conferenze e attività didattiche speciali.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Virtual Tour -->
+        <div
+          id="page-virtual_tour"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <div class="flex flex-wrap justify-center gap-8 w-full max-w-5xl p-4">
+            <div
+              class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center"
+              onclick="showPage('biennio_page')"
+            >
+              <img
+                src="/img/fotoPlessi/Foto_plesso_biennio.png"
+                alt="biennio"
+                class="w-full h-60 object-cover rounded-2xl mb-4"
+              />
+              <div class="text-2xl font-semibold text-white mb-1">
+                Sede Biennio
+              </div>
+              <div class="text-blue-100 text-sm">
+                Entra nel tour della sede biennio.
+              </div>
+            </div>
+            <div
+              class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center"
+              onclick="showPage('triennio_page')"
+            >
+              <img
+                src="/img/fotoPlessi/Foto_plesso_triennio.jpg"
+                alt="triennio"
+                class="w-full h-60 object-cover rounded-2xl mb-4"
+              />
+              <div class="text-2xl font-semibold text-white mb-1">
+                Sede Centrale (Triennio)
+              </div>
+              <div class="text-blue-100 text-sm">
+                Entra nel tour della sede centrale.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biennio Page -->
+        <div
+          id="page-biennio_page"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <div
+            class="flex flex-wrap justify-center gap-8 max-w-6xl w-full px-4"
+          >
+            <!-- Ingresso principale -->
+            <div
+              class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center"
+              onclick="loadPanoramaFull('ingresso_Biennio')"
+            >
+              <img
+                src="/img/fotoPlessi/Foto_plesso_biennio.png"
+                alt="ingresso"
+                class="w-full h-48 object-cover rounded-2xl mb-4"
+              />
+              <div class="text-2xl font-semibold text-white mb-1">
+                Ingresso principale Biennio
+              </div>
+              <div class="text-blue-100 text-sm">
+                Visita l'ingresso principale e naviga tra le varie aree dalla
+                scena 360°.
+              </div>
+            </div>
+
+            <!-- Bottone per tornare indietro -->
+            <button
+              class="w-full py-3 my-2 bg-blue-800/50 hover:bg-blue-600 text-white border border-blue-700 shadow-lg rounded-lg font-semibold transition"
+              onclick="showPage('virtual_tour')"
+            >
+              Torna alla scelta
+            </button>
+          </div>
+        </div>
 
         <!-- Triennio Page -->
-            <div id="page-triennio_page" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-                <div class="flex flex-wrap justify-center gap-8 max-w-6xl w-full px-4">
-
-                    <!-- Laboratori -->
-                    <div class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center" onclick="loadPanoramaFull('ingresso_Lab')">
-                        <img src="/img/fotoPlessi/" alt="laboratori" class="w-full h-48 object-cover rounded-2xl mb-4">
-                        <div class="text-2xl font-semibold text-white mb-1">Laboratori</div>
-                        <div class="text-blue-100 text-sm">Esplora il corridoio dei laboratori e naviga tra le singole aule.</div>
-                    </div>
-
-                    <!-- Ingresso principale -->
-                    <div class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center" onclick="loadPanoramaFull('Esterno')">
-                        <img src="/img/fotoPlessi/Foto_plesso_triennio.jpg" alt="ingresso" class="w-full h-48 object-cover rounded-2xl mb-4">
-                        <div class="text-2xl font-semibold text-white mb-1">Ingresso principale</div>
-                        <div class="text-blue-100 text-sm">Visita l'ingresso principale e naviga tra le varie aree dalla scena 360°.</div>
-                    </div>
-
-                    <!-- Bottone per tornare indietro -->
-                    <button class="w-full py-3 my-2 bg-blue-800/50 hover:bg-blue-600 text-white border border-blue-700 shadow-lg rounded-lg font-semibold transition" onclick="showPage('virtual_tour')">
-                        Torna alla scelta
-                    </button>
-                </div>
+        <div
+          id="page-triennio_page"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <div
+            class="flex flex-wrap justify-center gap-8 max-w-6xl w-full px-4"
+          >
+            <!-- Laboratori -->
+            <div
+              class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center"
+              onclick="loadPanoramaFull('ingresso_Lab')"
+            >
+              <img
+                src="/img/fotoPlessi/"
+                alt="laboratori"
+                class="w-full h-48 object-cover rounded-2xl mb-4"
+              />
+              <div class="text-2xl font-semibold text-white mb-1">
+                Laboratori
+              </div>
+              <div class="text-blue-100 text-sm">
+                Esplora il corridoio dei laboratori e naviga tra le singole
+                aule.
+              </div>
             </div>
+
+            <!-- Ingresso principale -->
+            <div
+              class="bg-blue-800/50 backdrop-blur-md p-6 rounded-3xl border border-blue-700 shadow-lg cursor-pointer transition hover:shadow-xl w-full sm:w-80 md:w-96 text-center"
+              onclick="loadPanoramaFull('Entrata_Principale_Triennio')"
+            >
+              <img
+                src="/img/fotoPlessi/Foto_plesso_triennio.jpg"
+                alt="ingresso"
+                class="w-full h-48 object-cover rounded-2xl mb-4"
+              />
+              <div class="text-2xl font-semibold text-white mb-1">
+                Ingresso principale
+              </div>
+              <div class="text-blue-100 text-sm">
+                Visita l'ingresso principale e naviga tra le varie aree dalla
+                scena 360°.
+              </div>
+            </div>
+
+            <!-- Bottone per tornare indietro -->
+            <button
+              class="w-full py-3 my-2 bg-blue-800/50 hover:bg-blue-600 text-white border border-blue-700 shadow-lg rounded-lg font-semibold transition"
+              onclick="showPage('virtual_tour')"
+            >
+              Torna alla scelta
+            </button>
+          </div>
+        </div>
 
         <!-- Indirizzi di Studio -->
-            <div id="page-indirizzi_studio" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-            <div class="w-full max-w-6xl px-4">
-                <h2 class="text-4xl font-extrabold text-white text-center mb-6">🎓 Indirizzi di Studio</h2>
-                <p class="text-blue-100 text-center max-w-3xl mx-auto mb-10">
-                Scopri i percorsi offerti dall'I.T.I. G. Marconi: schede chiare, materie principali, sbocchi professionali e link utili.
-                </p>
+        <div
+          id="page-indirizzi_studio"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <div class="w-full max-w-6xl px-4">
+            <h2 class="text-4xl font-extrabold text-white text-center mb-6">
+              🎓 Indirizzi di Studio
+            </h2>
+            <p class="text-blue-100 text-center max-w-3xl mx-auto mb-10">
+              Scopri i percorsi offerti dall'I.T.I. G. Marconi: schede chiare,
+              materie principali, sbocchi professionali e link utili.
+            </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Informatica e Telecomunicazioni -->
-                <article class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md">
-                    <header class="flex items-start gap-4 mb-4">
-                    <div class="text-4xl">💻</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Informatica e Telecomunicazioni</h3>
-                        <p class="text-sm text-blue-200">Sviluppo software, reti, Cybersecurity e sistemi.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- Informatica e Telecomunicazioni -->
+              <article
+                class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md"
+              >
+                <header class="flex items-start gap-4 mb-4">
+                  <div class="text-4xl">💻</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Informatica e Telecomunicazioni
+                    </h3>
+                    <p class="text-sm text-blue-200">
+                      Sviluppo software, reti, Cybersecurity e sistemi.
+                    </p>
+                  </div>
+                </header>
+                <details class="text-left text-blue-100">
+                  <summary class="cursor-pointer font-medium py-2">
+                    Leggi i dettagli ▾
+                  </summary>
+                  <div class="mt-3 text-sm space-y-3">
+                    <p>
+                      <strong>Descrizione:</strong> Percorso orientato allo
+                      sviluppo software, sistemi e telecomunicazioni con forte
+                      presenza di laboratori.
+                    </p>
+                    <p>
+                      <strong>Materie principali:</strong> Programmazione
+                      (C++/Java/JavaScript), Reti, Sistemi, Sicurezza, Database,
+                      Telecomunicazioni.
+                    </p>
+                    <p>
+                      <strong>Sbocchi:</strong> Programmatore, Sistemista,
+                      Tecnico di reti, Cybersecurity junior, Web developer.
+                    </p>
+                    <div class="flex gap-2 mt-2">
+                      <a
+                        href="MaterialeUtile/PRESENTAIONE_INFORMATICA_MARCONI_NEW.pdf"
+                        class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm"
+                        >Brochure PDF</a
+                      >
                     </div>
-                    </header>
-                    <details class="text-left text-blue-100">
-                    <summary class="cursor-pointer font-medium py-2">Leggi i dettagli ▾</summary>
-                    <div class="mt-3 text-sm space-y-3">
-                        <p><strong>Descrizione:</strong> Percorso orientato allo sviluppo software, sistemi e telecomunicazioni con forte presenza di laboratori.</p>
-                        <p><strong>Materie principali:</strong> Programmazione (C++/Java/JavaScript), Reti, Sistemi, Sicurezza, Database, Telecomunicazioni.</p>
-                        <p><strong>Sbocchi:</strong> Programmatore, Sistemista, Tecnico di reti, Cybersecurity junior, Web developer.</p>
-                        <div class="flex gap-2 mt-2">
-                        <a href="https://www.iismarconinocera.edu.it/wp-content/uploads/2024/02/PRESENTAIONE_INFORMATICA_MARCONI_NEW.pdf" class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm">Brochure PDF</a>
-                        </div>
-                    </div>
-                    </details>
-                </article>
+                  </div>
+                </details>
+              </article>
 
-                <!-- Informatica Quadriennale -->
-                <article class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md">
-                    <header class="flex items-start gap-4 mb-4">
-                    <div class="text-4xl">⚙️</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Informatica (Quadriennale) - Articolazione Informatica</h3>
-                        <p class="text-sm text-blue-200">Percorso intensivo in 4 anni per un ingresso rapido nel mondo IT.</p>
-                    </div>
-                    </header>
-                    <details class="text-left text-blue-100">
-                    <summary class="cursor-pointer font-medium py-2">Leggi i dettagli ▾</summary>
-                    <div class="mt-3 text-sm space-y-3">
-                        <p><strong>Descrizione:</strong> Programma accelerato che copre le competenze fondamentali del settore informatico in 4 anni.</p>
-                        <p><strong>Materie principali:</strong> Programmazione avanzata, AI/ML introduttiva, Reti, Cybersecurity, Project work.</p>
-                        <p><strong>Sbocchi:</strong> Developer, Tecnico informatico, Sistemista, Junior AI developer, Accesso a ITS e Università.</p>
-                    </div>
-                    </details>
-                </article>
+              <!-- Informatica Quadriennale -->
+              <article
+                class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md"
+              >
+                <header class="flex items-start gap-4 mb-4">
+                  <div class="text-4xl">⚙️</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Informatica (Quadriennale) - Articolazione Informatica
+                    </h3>
+                    <p class="text-sm text-blue-200">
+                      Percorso intensivo in 4 anni per un ingresso rapido nel
+                      mondo IT.
+                    </p>
+                  </div>
+                </header>
+                <details class="text-left text-blue-100">
+                  <summary class="cursor-pointer font-medium py-2">
+                    Leggi i dettagli ▾
+                  </summary>
+                  <div class="mt-3 text-sm space-y-3">
+                    <p>
+                      <strong>Descrizione:</strong> Programma accelerato che
+                      copre le competenze fondamentali del settore informatico
+                      in 4 anni.
+                    </p>
+                    <p>
+                      <strong>Materie principali:</strong> Programmazione
+                      avanzata, AI/ML introduttiva, Reti, Cybersecurity, Project
+                      work.
+                    </p>
+                    <p>
+                      <strong>Sbocchi:</strong> Developer, Tecnico informatico,
+                      Sistemista, Junior AI developer, Accesso a ITS e
+                      Università.
+                    </p>
+                    <a
+                      href="MaterialeUtile/PRESENTAZIONE_4+2.pdf"
+                      class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm"
+                      >Brochure PDF</a
+                    >
+                  </div>
+                </details>
+              </article>
 
-                <!-- Elettronica ed Elettrotecnica -->
-                <article class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md">
-                    <header class="flex items-start gap-4 mb-4">
-                    <div class="text-4xl">⚡</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Elettronica ed Elettrotecnica</h3>
-                        <p class="text-sm text-blue-200">Sistemi elettronici, automazione e impianti.</p>
+              <!-- Elettronica ed Elettrotecnica -->
+              <article
+                class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md"
+              >
+                <header class="flex items-start gap-4 mb-4">
+                  <div class="text-4xl">⚡</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Elettronica ed Elettrotecnica
+                    </h3>
+                    <p class="text-sm text-blue-200">
+                      Sistemi elettronici, automazione e impianti.
+                    </p>
+                  </div>
+                </header>
+                <details class="text-left text-blue-100">
+                  <summary class="cursor-pointer font-medium py-2">
+                    Leggi i dettagli ▾
+                  </summary>
+                  <div class="mt-3 text-sm space-y-3">
+                    <p>
+                      <strong>Descrizione:</strong> Studia componenti
+                      elettronici, automazione, robotica e impianti elettrici
+                      con attività laboratoriali pratiche.
+                    </p>
+                    <p>
+                      <strong>Materie principali:</strong> Elettronica,
+                      Elettrotecnica, PLC, Robotica, Disegno tecnico (CAD),
+                      Domotica.
+                    </p>
+                    <p>
+                      <strong>Sbocchi:</strong> Tecnico elettronico,
+                      Installatore impianti, Programmatore PLC, Tecnico
+                      manutentore.
+                    </p>
+                    <div class="flex gap-2 mt-2">
+                      <a
+                        href="MaterialeUtile/presentazione_Dipartimento_ElettrotecnicaNEW-2.pdf"
+                        class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm"
+                        >Brochure PDF</a
+                      >
                     </div>
-                    </header>
-                    <details class="text-left text-blue-100">
-                    <summary class="cursor-pointer font-medium py-2">Leggi i dettagli ▾</summary>
-                    <div class="mt-3 text-sm space-y-3">
-                        <p><strong>Descrizione:</strong> Studia componenti elettronici, automazione, robotica e impianti elettrici con attività laboratoriali pratiche.</p>
-                        <p><strong>Materie principali:</strong> Elettronica, Elettrotecnica, PLC, Robotica, Disegno tecnico (CAD), Domotica.</p>
-                        <p><strong>Sbocchi:</strong> Tecnico elettronico, Installatore impianti, Programmatore PLC, Tecnico manutentore.</p>
-                        <div class="flex gap-2 mt-2">
-                        <a href="https://www.iismarconinocera.edu.it/wp-content/uploads/2024/02/presentazione_Dipartimento_ElettrotecnicaNEW-2.pdf" class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm">Brochure PDF</a>
-                        </div>
-                    </div>
-                    </details>
-                </article>
+                  </div>
+                </details>
+              </article>
 
-                <!-- Chimica, Materiali e Biotecnologie -->
-                <article class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md">
-                    <header class="flex items-start gap-4 mb-4">
-                    <div class="text-4xl">🧪</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Chimica, Materiali e Biotecnologie</h3>
-                        <p class="text-sm text-blue-200">Laboratori chimici, analisi e scienze dei materiali.</p>
+              <!-- Chimica, Materiali e Biotecnologie -->
+              <article
+                class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md"
+              >
+                <header class="flex items-start gap-4 mb-4">
+                  <div class="text-4xl">🧪</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Chimica, Materiali e Biotecnologie
+                    </h3>
+                    <p class="text-sm text-blue-200">
+                      Laboratori chimici, analisi e scienze dei materiali.
+                    </p>
+                  </div>
+                </header>
+                <details class="text-left text-blue-100">
+                  <summary class="cursor-pointer font-medium py-2">
+                    Leggi i dettagli ▾
+                  </summary>
+                  <div class="mt-3 text-sm space-y-3">
+                    <p>
+                      <strong>Descrizione:</strong> Percorso per chi ama la
+                      ricerca in laboratorio, l’analisi chimica e lo studio dei
+                      materiali.
+                    </p>
+                    <p>
+                      <strong>Materie principali:</strong> Chimica organica e
+                      inorganica, Analisi strumentale, Biochimica, Tecnologie
+                      chimiche.
+                    </p>
+                    <p>
+                      <strong>Sbocchi:</strong> Tecnico di laboratorio,
+                      Operatore in aziende farmaceutiche, Tecnico ambientale.
+                    </p>
+                    <div class="flex gap-2 mt-2">
+                      <a
+                        href="MaterialeUtile/Dip_Chimica_Presentazione.pdf"
+                        class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm"
+                        >Brochure PDF</a
+                      >
                     </div>
-                    </header>
-                    <details class="text-left text-blue-100">
-                    <summary class="cursor-pointer font-medium py-2">Leggi i dettagli ▾</summary>
-                    <div class="mt-3 text-sm space-y-3">
-                        <p><strong>Descrizione:</strong> Percorso per chi ama la ricerca in laboratorio, l’analisi chimica e lo studio dei materiali.</p>
-                        <p><strong>Materie principali:</strong> Chimica organica e inorganica, Analisi strumentale, Biochimica, Tecnologie chimiche.</p>
-                        <p><strong>Sbocchi:</strong> Tecnico di laboratorio, Operatore in aziende farmaceutiche, Tecnico ambientale.</p>
-                        <div class="flex gap-2 mt-2">
-                        <a href="https://www.iismarconinocera.edu.it/wp-content/uploads/2024/02/Dip_Chimica_Presentazione.pdf" class="inline-block px-3 py-2 bg-cyan-400/20 text-cyan-200 rounded-lg text-sm">Brochure PDF</a>
-                        </div>
-                    </div>
-                    </details>
-                </article>
+                  </div>
+                </details>
+              </article>
 
-                <!-- Grafica e Comunicazione -->
-                <article class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md">
-                    <header class="flex items-start gap-4 mb-4">
-                    <div class="text-4xl">🎨</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Grafica e Comunicazione</h3>
-                        <p class="text-sm text-blue-200">Design, multimedialità, stampa e comunicazione visiva.</p>
-                    </div>
-                    </header>
-                    <details class="text-left text-blue-100">
-                    <summary class="cursor-pointer font-medium py-2">Leggi i dettagli ▾</summary>
-                    <div class="mt-3 text-sm space-y-3">
-                        <p><strong>Descrizione:</strong> Corso creativo che combina competenze grafiche, fotografia, video e web design.</p>
-                        <p><strong>Materie principali:</strong> Grafica digitale (Photoshop/Illustrator), Fotografia, Video editing, Impaginazione, Web design.</p>
-                        <p><strong>Sbocchi:</strong> Grafico, Web designer, Videomaker, Tecnico stampa, Social content creator.</p>
-                    </div>
-                    </details>
-                </article>
-                </div>
+              <!-- Grafica e Comunicazione -->
+              <article
+                class="bg-white/6 border border-white/10 rounded-2xl p-6 shadow-md"
+              >
+                <header class="flex items-start gap-4 mb-4">
+                  <div class="text-4xl">🎨</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Grafica e Comunicazione
+                    </h3>
+                    <p class="text-sm text-blue-200">
+                      Design, multimedialità, stampa e comunicazione visiva.
+                    </p>
+                  </div>
+                </header>
+                <details class="text-left text-blue-100">
+                  <summary class="cursor-pointer font-medium py-2">
+                    Leggi i dettagli ▾
+                  </summary>
+                  <div class="mt-3 text-sm space-y-3">
+                    <p>
+                      <strong>Descrizione:</strong> Corso creativo che combina
+                      competenze grafiche, fotografia, video e web design.
+                    </p>
+                    <p>
+                      <strong>Materie principali:</strong> Grafica digitale
+                      (Photoshop/Illustrator), Fotografia, Video editing,
+                      Impaginazione, Web design.
+                    </p>
+                    <p>
+                      <strong>Sbocchi:</strong> Grafico, Web designer,
+                      Videomaker, Tecnico stampa, Social content creator.
+                    </p>
+                  </div>
+                </details>
+              </article>
             </div>
-            </div>
+          </div>
+        </div>
 
         <!-- Progetti & Attività -->
-        <div id="page-progetti" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-            <div class="w-full max-w-6xl px-4">
+        <div
+          id="page-progetti"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <div class="w-full max-w-6xl px-4">
+            <h2 class="text-4xl font-extrabold text-white text-center mb-6">
+              🚀 Progetti & Attività
+            </h2>
+            <p class="text-blue-100 text-center max-w-3xl mx-auto mb-10">
+              Scopri i progetti realizzati dai nostri studenti: robotica,
+              coding, grafica, chimica e innovazione. Ogni attività mostra le
+              competenze vere sviluppate nei laboratori dell’Istituto.
+            </p>
 
-                <h2 class="text-4xl font-extrabold text-white text-center mb-6">🚀 Progetti & Attività</h2>
-                <p class="text-blue-100 text-center max-w-3xl mx-auto mb-10">
-                Scopri i progetti realizzati dai nostri studenti: robotica, coding, grafica, chimica e innovazione. 
-                Ogni attività mostra le competenze vere sviluppate nei laboratori dell’Istituto.
-                </p>
+            <!-- Flex container -->
+            <div class="flex flex-wrap -mx-3">
+              <!-- STM32ODE -->
+              <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
+                <article
+                  class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full"
+                >
+                  <img
+                    src="/img/fotoCompetizioni/STM32ODE.jpeg"
+                    alt="STM32ODE"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-5 flex-1 flex flex-col">
+                    <header class="flex items-center gap-3 mb-3">
+                      <div class="text-3xl">🏆</div>
+                      <h3 class="text-lg font-semibold text-white">
+                        Primo posto STM32ODE
+                      </h3>
+                    </header>
+                    <p class="text-blue-200 text-sm flex-1 mb-3">
+                      Il team MRC SYSTEM ENGINEERING dell’IIS Marconi ha vinto
+                      la finale del concorso STM32ODE con il rover sottomarino
+                      Marconi Rov Explorer (MRE).
+                    </p>
+                    <details class="text-blue-100">
+                      <summary class="cursor-pointer font-medium text-sm">
+                        Leggi i dettagli ▾
+                      </summary>
+                      <div class="mt-2 text-xs leading-relaxed">
+                        Gli studenti hanno progettato un rover IoT/AI per
+                        monitorare la Posidonia Oceanica e rilevare plastiche in
+                        mare.
+                      </div>
+                    </details>
+                  </div>
+                </article>
+              </div>
 
-                <!-- Flex container -->
-                <div class="flex flex-wrap -mx-3">
+              <!-- Maker Faire -->
+              <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
+                <article
+                  class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full"
+                >
+                  <img
+                    src="/img/fotoCompetizioni/Maker_faire_2025.jpeg"
+                    alt="Maker Faire"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-5 flex-1 flex flex-col">
+                    <header class="flex items-center gap-3 mb-3">
+                      <div class="text-3xl">🎉</div>
+                      <h3 class="text-lg font-semibold text-white">
+                        Maker Faire Rome
+                      </h3>
+                    </header>
+                    <p class="text-blue-200 text-sm flex-1 mb-3">
+                      Il progetto "Marconi ROV Explorer" premiato come Maker of
+                      Merit 2025 tra oltre 700 idee presentate.
+                    </p>
+                    <details class="text-blue-100">
+                      <summary class="cursor-pointer font-medium text-sm">
+                        Leggi i dettagli ▾
+                      </summary>
+                      <div class="mt-2 text-xs leading-relaxed">
+                        Evento dal 17 al 19 ottobre 2025 presso il Gazometro
+                        Ostiense. I ragazzi si sono distinti per contenuto
+                        tecnologico e raffinatezza progettuale.
+                      </div>
+                    </details>
+                  </div>
+                </article>
+              </div>
 
-                <!-- STM32ODE -->
-                <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
-                    <article class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full">
-                    <img src="/img/fotoCompetizioni/STM32ODE.jpeg" alt="STM32ODE" class="w-full h-48 object-cover">
-                    <div class="p-5 flex-1 flex flex-col">
-                        <header class="flex items-center gap-3 mb-3">
-                        <div class="text-3xl">🏆</div>
-                        <h3 class="text-lg font-semibold text-white">Primo posto STM32ODE</h3>
-                        </header>
-                        <p class="text-blue-200 text-sm flex-1 mb-3">
-                        Il team MRC SYSTEM ENGINEERING dell’IIS Marconi ha vinto la finale del concorso STM32ODE con il rover sottomarino Marconi Rov Explorer (MRE).
-                        </p>
-                        <details class="text-blue-100">
-                        <summary class="cursor-pointer font-medium text-sm">Leggi i dettagli ▾</summary>
-                        <div class="mt-2 text-xs leading-relaxed">
-                            Gli studenti hanno progettato un rover IoT/AI per monitorare la Posidonia Oceanica e rilevare plastiche in mare.
-                        </div>
-                        </details>
-                    </div>
-                    </article>
-                </div>
+              <!-- e.DO Cup -->
+              <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
+                <article
+                  class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full"
+                >
+                  <img
+                    src="/img/fotoCompetizioni/e.do-CUP_COMAU_Maggio_2025.jpg"
+                    alt="e.DO Cup"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-5 flex-1 flex flex-col">
+                    <header class="flex items-center gap-3 mb-3">
+                      <div class="text-3xl">🤖</div>
+                      <h3 class="text-lg font-semibold text-white">
+                        Finale e.DO Cup
+                      </h3>
+                    </header>
+                    <p class="text-blue-200 text-sm flex-1 mb-3">
+                      Due team del Marconi in gara a Torino, classificati 3° e
+                      5° su 10 finalisti, programmando il braccio robotico e.DO.
+                    </p>
+                    <details class="text-blue-100">
+                      <summary class="cursor-pointer font-medium text-sm">
+                        Leggi i dettagli ▾
+                      </summary>
+                      <div class="mt-2 text-xs leading-relaxed">
+                        La competizione prevede la manipolazione di oggetti
+                        complessi con il braccio robotico a 6 assi.
+                      </div>
+                    </details>
+                  </div>
+                </article>
+              </div>
 
-                <!-- Maker Faire -->
-                <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
-                    <article class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full">
-                    <img src="/img/fotoCompetizioni/Maker_faire_2025.jpeg" alt="Maker Faire" class="w-full h-48 object-cover">
-                    <div class="p-5 flex-1 flex flex-col">
-                        <header class="flex items-center gap-3 mb-3">
-                        <div class="text-3xl">🎉</div>
-                        <h3 class="text-lg font-semibold text-white">Maker Faire Rome</h3>
-                        </header>
-                        <p class="text-blue-200 text-sm flex-1 mb-3">
-                        Il progetto "Marconi ROV Explorer" premiato come Maker of Merit 2025 tra oltre 700 idee presentate.
-                        </p>
-                        <details class="text-blue-100">
-                        <summary class="cursor-pointer font-medium text-sm">Leggi i dettagli ▾</summary>
-                        <div class="mt-2 text-xs leading-relaxed">
-                            Evento dal 17 al 19 ottobre 2025 presso il Gazometro Ostiense. I ragazzi si sono distinti per contenuto tecnologico e raffinatezza progettuale.
-                        </div>
-                        </details>
-                    </div>
-                    </article>
-                </div>
+              <!-- Phaser Jam -->
+              <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
+                <article
+                  class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full"
+                >
+                  <img
+                    src="/img/fotoCompetizioni/phaser.jpeg"
+                    alt="Phaser Jam 2025"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-5 flex-1 flex flex-col">
+                    <header class="flex items-center gap-3 mb-3">
+                      <div class="text-3xl">🎮</div>
+                      <h3 class="text-lg font-semibold text-white">
+                        Phaser Jam 2025
+                      </h3>
+                    </header>
+                    <p class="text-blue-200 text-sm flex-1 mb-3">
+                      Videogioco sviluppato dagli studenti con Phaser.JS,
+                      gameplay dinamico e sound design immersivo.
+                    </p>
+                    <details class="text-blue-100">
+                      <summary class="cursor-pointer font-medium text-sm">
+                        Leggi i dettagli ▾
+                      </summary>
+                      <div class="mt-2 text-xs leading-relaxed">
+                        Hackathon 28-29 marzo presso PalaUNISA Salerno, con 28
+                        scuole partecipanti.
+                      </div>
+                    </details>
+                  </div>
+                </article>
+              </div>
 
-                <!-- e.DO Cup -->
-                <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
-                    <article class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full">
-                    <img src="/img/fotoCompetizioni/e.do-CUP_COMAU_Maggio_2025.jpg" alt="e.DO Cup" class="w-full h-48 object-cover">
-                    <div class="p-5 flex-1 flex flex-col">
-                        <header class="flex items-center gap-3 mb-3">
-                        <div class="text-3xl">🤖</div>
-                        <h3 class="text-lg font-semibold text-white">Finale e.DO Cup</h3>
-                        </header>
-                        <p class="text-blue-200 text-sm flex-1 mb-3">
-                        Due team del Marconi in gara a Torino, classificati 3° e 5° su 10 finalisti, programmando il braccio robotico e.DO.
-                        </p>
-                        <details class="text-blue-100">
-                        <summary class="cursor-pointer font-medium text-sm">Leggi i dettagli ▾</summary>
-                        <div class="mt-2 text-xs leading-relaxed">
-                            La competizione prevede la manipolazione di oggetti complessi con il braccio robotico a 6 assi.
-                        </div>
-                        </details>
-                    </div>
-                    </article>
-                </div>
-
-                <!-- Phaser Jam -->
-                <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
-                    <article class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full">
-                    <img src="/img/fotoCompetizioni/phaser.jpeg" alt="Phaser Jam 2025" class="w-full h-48 object-cover">
-                    <div class="p-5 flex-1 flex flex-col">
-                        <header class="flex items-center gap-3 mb-3">
-                        <div class="text-3xl">🎮</div>
-                        <h3 class="text-lg font-semibold text-white">Phaser Jam 2025</h3>
-                        </header>
-                        <p class="text-blue-200 text-sm flex-1 mb-3">
-                        Videogioco sviluppato dagli studenti con Phaser.JS, gameplay dinamico e sound design immersivo.
-                        </p>
-                        <details class="text-blue-100">
-                        <summary class="cursor-pointer font-medium text-sm">Leggi i dettagli ▾</summary>
-                        <div class="mt-2 text-xs leading-relaxed">
-                            Hackathon 28-29 marzo presso PalaUNISA Salerno, con 28 scuole partecipanti.
-                        </div>
-                        </details>
-                    </div>
-                    </article>
-                </div>
-
-                <!-- PCTO AI Generativa -->
-                <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
-                    <article class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full">
-                    <img src="/img/fotoCompetizioni/UNISA_PCTO_AI_maggio_2025.jpg" alt="AI Generativa" class="w-full h-48 object-cover">
-                    <div class="p-5 flex-1 flex flex-col">
-                        <header class="flex items-center gap-3 mb-3">
-                        <div class="text-3xl">🏆</div>
-                        <h3 class="text-lg font-semibold text-white">PCTO AI Generativa</h3>
-                        </header>
-                        <p class="text-blue-200 text-sm flex-1 mb-3">
-                        Il team Informatica Marconi vince 1° posto categoria App e menzione speciale per script originale.
-                        </p>
-                        <details class="text-blue-100">
-                        <summary class="cursor-pointer font-medium text-sm">Leggi i dettagli ▾</summary>
-                        <div class="mt-2 text-xs leading-relaxed">
-                            App AI per aiutare i genitori a riconoscere episodi di cyberbullismo, con consigli pratici e prevenzione.
-                        </div>
-                        </details>
-                    </div>
-                    </article>
-                </div>
-                </div>
+              <!-- PCTO AI Generativa -->
+              <div class="w-full sm:w-1/2 lg:w-1/3 px-3 mb-6">
+                <article
+                  class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition h-full"
+                >
+                  <img
+                    src="/img/fotoCompetizioni/UNISA_PCTO_AI_maggio_2025.jpg"
+                    alt="AI Generativa"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-5 flex-1 flex flex-col">
+                    <header class="flex items-center gap-3 mb-3">
+                      <div class="text-3xl">🏆</div>
+                      <h3 class="text-lg font-semibold text-white">
+                        PCTO AI Generativa
+                      </h3>
+                    </header>
+                    <p class="text-blue-200 text-sm flex-1 mb-3">
+                      Il team Informatica Marconi vince 1° posto categoria App e
+                      menzione speciale per script originale.
+                    </p>
+                    <details class="text-blue-100">
+                      <summary class="cursor-pointer font-medium text-sm">
+                        Leggi i dettagli ▾
+                      </summary>
+                      <div class="mt-2 text-xs leading-relaxed">
+                        App AI per aiutare i genitori a riconoscere episodi di
+                        cyberbullismo, con consigli pratici e prevenzione.
+                      </div>
+                    </details>
+                  </div>
+                </article>
+              </div>
             </div>
+          </div>
         </div>
 
         <!-- DOVE SIAMO -->
-        <div id="page-dove_siamo" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-            <h2 class="text-4xl font-extrabold text-white text-center mb-10">🗺️ Dove Siamo</h2>
-            <p class="text-blue-100 text-center max-w-3xl mb-12">
-                L'I.I.S. G. Marconi è articolato in due sedi principali: la sede del Biennio e la sede del Triennio.
-                Clicca sulle card per visualizzare la posizione su Google Maps.
-            </p>
+        <div
+          id="page-dove_siamo"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <h2 class="text-4xl font-extrabold text-white text-center mb-10">
+            🗺️ Dove Siamo
+          </h2>
+          <p class="text-blue-100 text-center max-w-3xl mb-12">
+            L'I.I.S. G. Marconi è articolato in due sedi principali: la sede del
+            Biennio e la sede del Triennio. Clicca sulle card per visualizzare
+            la posizione su Google Maps.
+          </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full px-6">
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full px-6"
+          >
+            <!-- Sede Biennio -->
+            <a
+              href="https://maps.app.goo.gl/V5ZJMapsEUCgxvFqiKxc9"
+              target="_blank"
+              class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:shadow-[0_0_35px_rgba(0,200,255,0.25)] transition block"
+            >
+              <h3 class="text-2xl font-semibold mb-3 text-white">
+                🏫 Sede Biennio
+              </h3>
+              <p class="text-blue-200 mb-4">
+                Via Principe Antonio de Curtis, 55, Nocera Inferiore (SA)
+              </p>
 
-                <!-- Sede Biennio -->
-                <a href="https://maps.app.goo.gl/V5ZJMapsEUCgxvFqiKxc9" target="_blank"
-                class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:shadow-[0_0_35px_rgba(0,200,255,0.25)] transition block">
-                    <h3 class="text-2xl font-semibold mb-3 text-white">🏫 Sede Biennio</h3>
-                    <p class="text-blue-200 mb-4">
-                        Via Principe Antonio de Curtis, 55, Nocera Inferiore (SA)
-                    </p>
+              <iframe
+                class="w-full h-64 rounded-xl border-none"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=Via%20Principe%20Antonio%20de%20Curtis%2055%20Nocera%20Inferiore%20SA&hl=it&z=16&output=embed"
+              >
+              </iframe>
+            </a>
 
-                    <iframe
-                    class="w-full h-64 rounded-xl border-none"
-                    loading="lazy"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://maps.google.com/maps?q=Via%20Principe%20Antonio%20de%20Curtis%2055%20Nocera%20Inferiore%20SA&hl=it&z=16&output=embed">
-                    </iframe>
-                </a>
+            <!-- Sede Triennio -->
+            <a
+              href="https://maps.app.goo.gl/nSnHDW9UMHf1edDc8"
+              target="_blank"
+              class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:shadow-[0_0_35px_rgba(0,200,255,0.25)] transition block"
+            >
+              <h3 class="text-2xl font-semibold mb-3 text-white">
+                🏢 Sede Centrale (Triennio)
+              </h3>
+              <p class="text-blue-200 mb-4">
+                Via Giuseppe Atzori, 145, Nocera Inferiore (SA)
+              </p>
 
-                <!-- Sede Triennio -->
-                <a href="https://maps.app.goo.gl/nSnHDW9UMHf1edDc8" target="_blank" 
-                class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:shadow-[0_0_35px_rgba(0,200,255,0.25)] transition block">
-                    <h3 class="text-2xl font-semibold mb-3 text-white">🏢 Sede Centrale (Triennio)</h3>
-                    <p class="text-blue-200 mb-4">
-                        Via Giuseppe Atzori, 145, Nocera Inferiore (SA)
-                    </p>
-
-                    <iframe
-                        class="w-full h-64 rounded-xl border-none"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://maps.google.com/maps?q=Via%20Giuseppe%20Atzori%20145%20Nocera%20Inferiore%20SA&hl=it&z=16&output=embed">
-                    </iframe>
-                </a>
-            </div>
+              <iframe
+                class="w-full h-64 rounded-xl border-none"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=Via%20Giuseppe%20Atzori%20145%20Nocera%20Inferiore%20SA&hl=it&z=16&output=embed"
+              >
+              </iframe>
+            </a>
+          </div>
         </div>
 
         <!-- SOCIAL -->
-        <div id="page-social" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-            <h2 class="text-4xl font-extrabold text-white text-center mb-10">🌐 Social</h2>
-            <p class="text-blue-100 text-center max-w-3xl mb-12">
-                Seguici sui nostri social ufficiali per rimanere aggiornato su eventi, progetti, attività e comunicazioni della scuola.
-            </p>
+        <div
+          id="page-social"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <h2 class="text-4xl font-extrabold text-white text-center mb-10">
+            🌐 Social
+          </h2>
+          <p class="text-blue-100 text-center max-w-3xl mb-12">
+            Seguici sui nostri social ufficiali per rimanere aggiornato su
+            eventi, progetti, attività e comunicazioni della scuola.
+          </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl w-full px-6">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl w-full px-6"
+          >
+            <!-- Facebook -->
+            <a
+              href=""
+              target="_blank"
+              class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center"
+            >
+              <div class="text-5xl mb-3 flex justify-center mb-3">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-12 h-12 text-white"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 2C6.5 2 2 6.4 2 12s4.5 10 10 10s10-4.4 10-10S17.5 2 12 2Zm2.4 6.5h-1.3c-.9 0-1.1.4-1.1 1.1V11h2.3l-.3 2.9h-2v4.1H9.8V13.9H8V11h1.8V9.2c0-1.8 1-3.2 3.3-3.2c.7 0 1.3.1 1.3.1v2.4Z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2">Facebook</h3>
+              <p class="text-blue-200 text-sm">
+                Pagina ufficiale dell'Istituto.
+              </p>
+            </a>
 
-                <!-- Facebook -->
-                <a href="" target="_blank"
-                class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center">
-                    <div class="text-5xl mb-3 flex justify-center mb-3">
-                        <svg viewBox="0 0 24 24" class="w-12 h-12 text-white" fill="currentColor">
-                            <path d="M12 2C6.5 2 2 6.4 2 12s4.5 10 10 10s10-4.4 10-10S17.5 2 12 2Zm2.4 6.5h-1.3c-.9 0-1.1.4-1.1 1.1V11h2.3l-.3 2.9h-2v4.1H9.8V13.9H8V11h1.8V9.2c0-1.8 1-3.2 3.3-3.2c.7 0 1.3.1 1.3.1v2.4Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Facebook</h3>
-                    <p class="text-blue-200 text-sm">Pagina ufficiale dell'Istituto.</p>
-                </a>
+            <!-- Instagram -->
+            <a
+              href="https://www.instagram.com/iis_guglielmo_marconi/"
+              target="_blank"
+              class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center"
+            >
+              <div class="text-5xl mb-3 flex justify-center mb-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                  <path
+                    d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 4.5A5.5 5.5 0 1 0 17.5 12 5.5 5.5 0 0 0 12 6.5Zm0 9A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm5.8-9.9a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2Z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2">Instagram</h3>
+              <p class="text-blue-200 text-sm">
+                Foto, eventi, progetti e vita scolastica.
+              </p>
+            </a>
 
-                <!-- Instagram -->
-                <a href="https://www.instagram.com/iis_guglielmo_marconi/" target="_blank"
-                class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center">
-                    <div class="text-5xl mb-3 flex justify-center mb-3">
-                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
-                            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 4.5A5.5 5.5 0 1 0 17.5 12 5.5 5.5 0 0 0 12 6.5Zm0 9A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm5.8-9.9a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Instagram</h3>
-                    <p class="text-blue-200 text-sm">Foto, eventi, progetti e vita scolastica.</p>
-                </a>
-
-                <!-- YouTube -->
-                <a href="https://www.youtube.com/@iisguglielmomarconi4388" target="_blank"
-                class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center">
-                    <div class="text-5xl mb-3 flex justify-center mb-3">
-                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
-                            <path d="M23 7.2a3 3 0 0 0-2.1-2.2C18.5 4.5 12 4.5 12 4.5s-6.5 0-8.9.5A3 3 0 0 0 1 7.2 41 41 0 0 0 1 12a41 41 0 0 0 .1 4.8 3 3 0 0 0 2.1 2.2c2.4.5 8.8.5 8.8.5s6.5 0 8.9-.5a3 3 0 0 0 2.1-2.2A41 41 0 0 0 23 12a41 41 0 0 0 0-4.8ZM10 15.3V8.7l5.8 3.3Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">YouTube</h3>
-                    <p class="text-blue-200 text-sm">Video, presentazioni e attività didattiche.</p>
-                </a>
-            </div>
+            <!-- YouTube -->
+            <a
+              href="https://www.youtube.com/@iisguglielmomarconi4388"
+              target="_blank"
+              class="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center"
+            >
+              <div class="text-5xl mb-3 flex justify-center mb-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                  <path
+                    d="M23 7.2a3 3 0 0 0-2.1-2.2C18.5 4.5 12 4.5 12 4.5s-6.5 0-8.9.5A3 3 0 0 0 1 7.2 41 41 0 0 0 1 12a41 41 0 0 0 .1 4.8 3 3 0 0 0 2.1 2.2c2.4.5 8.8.5 8.8.5s6.5 0 8.9-.5a3 3 0 0 0 2.1-2.2A41 41 0 0 0 23 12a41 41 0 0 0 0-4.8ZM10 15.3V8.7l5.8 3.3Z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2">YouTube</h3>
+              <p class="text-blue-200 text-sm">
+                Video, presentazioni e attività didattiche.
+              </p>
+            </a>
+          </div>
         </div>
 
         <!-- SITO WEB UFFICIALE -->
-        <div id="page-sito_web" class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16">
-            <h2 class="text-4xl font-extrabold text-white text-center mb-10">🕸️ Sito Web Ufficiale</h2>
-            <p class="text-blue-100 text-center max-w-3xl mb-12">
-                Visita il sito istituzionale dell'I.I.S. G. Marconi per consultare circolari, documenti ufficiali, PTOF,
-                contatti, modulistica e tutte le informazioni aggiornate.
-            </p>
+        <div
+          id="page-sito_web"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <h2 class="text-4xl font-extrabold text-white text-center mb-10">
+            🕸️ Sito Web Ufficiale
+          </h2>
+          <p class="text-blue-100 text-center max-w-3xl mb-12">
+            Visita il sito istituzionale dell'I.I.S. G. Marconi per consultare
+            circolari, documenti ufficiali, PTOF, contatti, modulistica e tutte
+            le informazioni aggiornate.
+          </p>
 
-            <a href="https://www.iismarconinocera.edu.it/" target="_blank"
-            class="bg-white/10 backdrop-blur-xl px-10 py-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center">
-                <div class="text-6xl mb-3">🌐</div>
-                <h3 class="text-2xl font-bold text-white">Apri il sito ufficiale</h3>
-                <p class="text-blue-200 mt-2">www.iismarconinocera.edu.it</p>
-            </a>
+          <a
+            href="https://www.iismarconinocera.edu.it/"
+            target="_blank"
+            class="bg-white/10 backdrop-blur-xl px-10 py-6 rounded-3xl border border-white/20 shadow-xl hover:bg-white/20 transition text-center"
+          >
+            <div class="text-6xl mb-3">🌐</div>
+            <h3 class="text-2xl font-bold text-white">
+              Apri il sito ufficiale
+            </h3>
+            <p class="text-blue-200 mt-2">www.iismarconinocera.edu.it</p>
+          </a>
         </div>
 
+        <!-- EVENTI -->
+        <div
+          id="page-eventi"
+          class="page hidden animate-fadeIn flex flex-col justify-center items-center min-h-screen py-16"
+        >
+          <h2 class="text-4xl font-extrabold text-white text-center mb-6">
+            📅 Eventi
+          </h2>
+
+          <p class="text-blue-100 text-center max-w-3xl mx-auto mb-10">
+            Partecipa agli Open Day ufficiali dell'I.I.S. G. Marconi e scopri
+            l’offerta formativa, i laboratori, i progetti e il percorso
+            sperimentale quadriennale.
+          </p>
+
+          <!-- CARD PRINCIPALE -->
+          <div
+            class="bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20 shadow-xl hover:shadow-[0_0_35px_rgba(0,200,255,0.25)] transition max-w-3xl w-full"
+          >
+            <h3 class="text-3xl font-bold text-white mb-4">
+              🎉 Open Day 2025 / 2026
+            </h3>
+
+            <!-- DATE -->
+            <div class="mb-6 text-blue-200">
+              <p class="text-lg font-semibold">📌 Date ufficiali:</p>
+              <ul class="mt-2 space-y-2 text-blue-100">
+                <li>
+                  • <strong>Domenica 14 Dicembre 2025</strong> — Ore 10:00 -
+                  12:30
+                </li>
+                <li>
+                  • <strong>Domenica 18 Gennaio 2026</strong> — Ore 10:00 -
+                  12:30
+                </li>
+              </ul>
+            </div>
+
+            <!-- DESCRIZIONE EVENTO -->
+            <p class="text-blue-100 leading-relaxed mb-6">
+              Durante l’Open Day potrai partecipare a un tour guidato della
+              scuola, visitare i laboratori, parlare con i docenti e con i
+              nostri giovani ambassador, e scoprire tutte le curiosità su:
+            </p>
+
+            <ul class="text-blue-100 space-y-2 mb-6">
+              <li>• Piano di studi dei vari indirizzi</li>
+              <li>• Curvature e percorsi di eccellenza</li>
+              <li>• Progetti innovativi</li>
+              <li>• Percorso sperimentale quadriennale</li>
+              <li>• Approccio didattico innovativo dell’Istituto</li>
+            </ul>
+
+            <!-- CODICE ISCRIZIONE -->
+            <div class="text-cyan-200 font-semibold text-sm">
+              Codice Iscrizioni: <span class="font-bold">SATF04101A</span>
+            </div>
+          </div>
+
+          <!-- INDIRIZZI CORRELATI -->
+          <div class="mt-16 max-w-4xl mx-auto text-center">
+            <h3 class="text-2xl font-bold text-white mb-4">
+              🎓 Indirizzi coinvolti
+            </h3>
+
+            <div class="text-blue-100 space-y-2">
+              <p>• Informatica e Telecomunicazioni</p>
+              <p>• Elettronica ed Elettrotecnica</p>
+              <p>• Chimica, Materiali e Biotecnologie</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- PANORAMA FULL SCREEN -->
     <div id="panorama-full" class="fixed inset-0 z-50 bg-black hidden">
-        <button onclick="closePanorama()" class="absolute top-4 right-4 z-50 bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-400 transition">⬅ Torna al Virtual Tour</button>
-        <div id="panorama-container-full" class="w-full h-full"></div>
+      <button
+        onclick="closePanorama()"
+        class="absolute top-4 right-4 z-50 bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-400 transition"
+      >
+        ⬅ Torna al Virtual Tour
+      </button>
+      <div id="panorama-container-full" class="w-full h-full"></div>
     </div>
 
-<script src="script.js"></script>
-<script src="VirtualTour.js"></script>
-<script src="animations.js"></script>
-
-</body>
+    <script src="script.js"></script>
+    <script src="VirtualTour.js"></script>
+    <script src="animations.js"></script>
+  </body>
 </html>
