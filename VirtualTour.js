@@ -255,6 +255,224 @@ const panoramas = {
       { pitch: 1, yaw: 200, type: "scene", text: "Esci", sceneId: "Esterno" },
     ],
   },
+
+  CorridoioLabFisicaRobotica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioFisicaRobotica.jpg",
+    hotSpots: [
+      {
+        pitch: -1,
+        yaw: 52,
+        type: "scene",
+        text: "Entra nel laboratorio di Robotica",
+        sceneId: "Laboratorio_Robotica",
+      },
+      {
+        pitch: -1,
+        yaw: -54,
+        type: "scene",
+        text: "Entra nel laboratorio di Fisica",
+        sceneId: "Laboratorio_Fisica",
+      },
+      {
+        pitch: -1,
+        yaw: -87,
+        type: "scene",
+        text: "Avanza",
+        sceneId: "CorridoioLabChimica",
+      },
+      {
+        pitch: -1,
+        yaw: 75,
+        type: "scene",
+        text: "Vai all altro lato del corridoio",
+        sceneId: "CorridoioLabInformatica",
+      },
+    ],
+  },
+  Laboratorio_Robotica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioRobotica.jpg",
+    hotSpots: [
+      {
+        pitch: -9,
+        yaw: 135,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabFisicaRobotica",
+      },
+    ],
+  },
+  Laboratorio_Fisica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioFisica.jpg",
+    hotSpots: [
+      {
+        pitch: -6,
+        yaw: 110,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabFisicaRobotica",
+      },
+    ],
+  },
+  CorridoioLabChimica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioChimica.jpg",
+    hotSpots: [
+      {
+        pitch: -1,
+        yaw: 5,
+        type: "scene",
+        text: "Torna indietro",
+        sceneId: "CorridoioLabFisicaRobotica",
+      },
+      {
+        pitch: -10,
+        yaw: -77,
+        type: "scene",
+        text: "Entra nel laboratorio di Chimica",
+        sceneId: "Laboratorio_Chimica",
+      },
+    ],
+  },
+  Laboratorio_Chimica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioChimica.jpg",
+    hotSpots: [
+      {
+        pitch: -6,
+        yaw: -143,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabChimica",
+      },
+    ],
+  },
+  CorridoioLabInformatica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioInformatica.jpg",
+    hotSpots: [
+      {
+        pitch: -10,
+        yaw: 20,
+        type: "scene",
+        text: "Entra nel laboratorio di Informatica",
+        sceneId: "Laboratorio_Informatica",
+      },
+      {
+        pitch: 0,
+        yaw: 90,
+        type: "scene",
+        text: "Avanza",
+        sceneId: "CorridoioLabCantarella",
+      },
+      {
+        pitch: 0,
+        yaw: -90,
+        type: "scene",
+        text: "Torna Dall altro lato del corridoio",
+        sceneId: "CorridoioLabFisicaRobotica",
+      },
+    ],
+  },
+  Laboratorio_Informatica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioInformatica.jpg",
+    hotSpots: [
+      {
+        pitch: -5,
+        yaw: 153,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabInformatica",
+      },
+    ],
+  },
+  CorridoioLabCantarella: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioCantarella.jpg",
+    hotSpots: [
+      {
+        pitch: -10,
+        yaw: 3,
+        type: "scene",
+        text: "Entra nel laboratorio di Scenze",
+        sceneId: "Laboratorio_Cantarella",
+      },
+      {
+        pitch: -2,
+        yaw: 85,
+        type: "scene",
+        text: "Avanza",
+        sceneId: "CorridoioLabPagano",
+      },
+      {
+        pitch: 0,
+        yaw: -87,
+        type: "scene",
+        text: "Torna indietro",
+        sceneId: "CorridoioLabInformatica",
+      },
+    ],
+  },
+  Laboratorio_Cantarella: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioCantarella.jpg",
+    hotSpots: [
+      {
+        pitch: -5,
+        yaw: -45,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabCantarella",
+      },
+    ],
+  },
+  CorridoioLabPagano: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioPagano.jpg",
+    hotSpots: [
+      {
+        pitch: -10,
+        yaw: 40,
+        type: "scene",
+        text: "Entra nel laboratorio di Tecnologia",
+        sceneId: "Laboratorio_Pagano",
+      },
+      {
+        pitch: 0,
+        yaw: -68,
+        type: "scene",
+        text: "Torna indietro",
+        sceneId: "CorridoioLabCantarella",
+      },
+    ],
+  },
+  Laboratorio_Pagano: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioPagano.jpg",
+    hotSpots: [
+      {
+        pitch: -2,
+        yaw: 157,
+        type: "scene",
+        text: "Esci",
+        sceneId: "CorridoioLabPagano",
+      },
+    ],
+  },
 };
 
 function loadPanoramaFull(sceneId) {
