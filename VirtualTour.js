@@ -473,6 +473,48 @@ const panoramas = {
       },
     ],
   },
+  ingresso_Biennio: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/PrincipaleBiennio/IngressoBiennio.jpg",
+    hotSpots: [
+      {
+        pitch: -2,
+        yaw: 162,
+        type: "scene",
+        text: "Vai al lato sinistro dei corridoi",
+        sceneId: "CorridoioLabFisicaRobotica",
+      },
+      {
+        pitch: -2,
+        yaw: 188,
+        type: "scene",
+        text: "Vai al lato destro dei corridoi",
+        sceneId: "CorridoioLabInformatica",
+      },
+      {
+        pitch: -2,
+        yaw: 25,
+        type: "scene",
+        text: "Vai al l aula di educazione fisica",
+        sceneId: "Aula_Educazione_Fisica",
+      },
+    ],
+  },
+  Aula_Educazione_Fisica: {
+    type: "equirectangular",
+    panorama:
+      "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/Aula_Educazione_Fisica.jpg",
+    hotSpots: [
+      {
+        pitch: -5,
+        yaw: 173,
+        type: "scene",
+        text: "Esci",
+        sceneId: "ingresso_Biennio",
+      },
+    ],
+  },
 };
 
 function loadPanoramaFull(sceneId) {
