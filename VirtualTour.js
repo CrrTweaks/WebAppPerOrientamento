@@ -555,7 +555,13 @@ function loadPanoramaFull(sceneId) {
   document.getElementById("panorama-full").classList.remove("hidden");
   if (fullViewer) fullViewer.destroy();
   fullViewer = pannellum.viewer("panorama-container-full", {
-    default: { firstScene: sceneId, sceneFadeDuration: 800 },
+    default: {
+      firstScene: sceneId,
+      sceneFadeDuration: 800,
+      hfov: 90,
+      minHfov: 60,
+      maxHfov: 90,
+    },
     autoLoad: true,
     scenes: panoramas,
   });
