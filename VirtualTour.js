@@ -1,5 +1,6 @@
 // Panellum full screen con scene e hotspot
 let fullViewer;
+let currentAvatar = null;
 
 // Biennio e Triennio
 const panoramas = {
@@ -70,8 +71,7 @@ const panoramas = {
         pitch: 20,
         yaw: -20,
         createTooltipFunc: hotspotDiv,
-        createTooltipArgs:
-          "Eccoci al piano superiore. Sulla destra troverai 4 laboratori specializzati.",
+        createTooltipArgs: "",
       },
     ],
   },
@@ -268,6 +268,16 @@ const panoramas = {
         createTooltipFunc: hotspotDiv,
         createTooltipArgs:
           "Benvenuti nei laboratori del Triennio. Avanza per esplorarli!",
+      },
+      {
+        pitch: -5,
+        yaw: 30,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          showSpeech("benvenuti ai laboratori!", e.target);
+        },
       },
     ],
   },
@@ -565,6 +575,10 @@ function loadPanoramaFull(sceneId) {
     autoLoad: true,
     scenes: panoramas,
   });
+
+  fullViewer.on("animatefinished", updateSpeechBoxPosition);
+  fullViewer.on("yawchange", updateSpeechBoxPosition);
+  fullViewer.on("pitchchange", updateSpeechBoxPosition);
 }
 
 function closePanorama() {
@@ -578,4 +592,42 @@ function closePanorama() {
 function hotspotDiv(hotSpotDiv, args) {
   hotSpotDiv.classList.add("custom-tooltip");
   hotSpotDiv.innerHTML = args;
+}
+
+// FUNZIONE CHE FA PARLARE L’AVATAR E MOSTRA LA NUVOLA
+function showSpeech(text, hotspotDiv) {
+  currentAvatar = hotspotDiv; // memorizza l’avatar usato
+
+  const box = document.getElementById("speechBox");
+  box.innerText = text;
+  box.style.display = "block";
+
+  // TTS
+  const msg = new SpeechSynthesisUtterance(text);
+  speechSynthesis.cancel();
+  speechSynthesis.speak(msg);
+
+  setTimeout(() => {
+    box.style.display = "none";
+    currentAvatar = null;
+  }, 6000);
+}
+
+// CREAZIONE HOTSPOT AVATAR
+function createAvatarHotspot(hotSpotDiv) {
+  const img = document.createElement("img");
+  img.src = "avatar.png";
+  hotSpotDiv.appendChild(img);
+}
+
+function updateSpeechBoxPosition() {
+  if (!currentAvatar) return;
+
+  const box = document.getElementById("speechBox");
+  const rect = currentAvatar.getBoundingClientRect();
+
+  box.style.left = rect.left + rect.width / 2 - box.offsetWidth / 2 + "px";
+  box.style.top = rect.top - 40 + "px";
+
+  requestAnimationFrame(updateSpeechBoxPosition);
 }

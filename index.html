@@ -58,6 +58,25 @@
         pointer-events: none !important;
         background-image: none !important;
       }
+      .avatarHotspot img {
+        width: 120px;
+        height: auto;
+      }
+
+      /* NUVOLA */
+      #speechBox {
+        position: absolute;
+        padding: 10px 12px;
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        border-radius: 12px;
+        max-width: 200px;
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        text-align: center;
+        pointer-events: none;
+      }
     </style>
 
     <link rel="stylesheet" href="animations.css" />
@@ -1090,6 +1109,11 @@
         ⬅ Torna al Virtual Tour
       </button>
       <div id="panorama-container-full" class="w-full h-full"></div>
+      <!-- Fumetto dell'avatar -->
+      <div
+        id="speechBox"
+        style="position: absolute; display: none; pointer-events: none"
+      ></div>
     </div>
 
     <script src="script.js"></script>
