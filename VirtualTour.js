@@ -276,7 +276,9 @@ const panoramas = {
         cssClass: "avatarHotspot",
         createTooltipFunc: createAvatarHotspot,
         clickHandlerFunc: function (e) {
-          showSpeech("benvenuti ai laboratori!", e.target);
+          const frasi = ["Benvenuti ai laboratori!", "Esplorali tutti!"];
+
+          speakSequence(frasi, e.target);
         },
       },
     ],
@@ -625,10 +627,11 @@ function showSpeech(text, hotspotDiv) {
   box.innerText = text;
   box.style.display = "block";
 
-  // Avvia audio
-  speakText(text);
+  // NON avviare audio se siamo in una sequenza
+  if (!window.sequenceActive) {
+    speakText(text);
+  }
 
-  // Avvia il loop se non è attivo
   if (!speechLoopRunning) {
     speechLoopRunning = true;
     requestAnimationFrame(updateSpeechBoxPosition);
@@ -648,4 +651,29 @@ function speakText(text) {
     const msg = new SpeechSynthesisUtterance(text);
     speechSynthesis.speak(msg);
   }, 50);
+}
+
+function speakSequence(sentences, hotspotDiv, index = 0) {
+  // Attiva sequenza
+  window.sequenceActive = true;
+
+  if (index >= sentences.length) {
+    window.sequenceActive = false;
+    currentAvatar = null;
+    speechLoopRunning = false;
+    return;
+  }
+
+  const text = sentences[index];
+
+  showSpeech(text, hotspotDiv); // mostra la vignetta ma non ripete audio
+
+  const msg = new SpeechSynthesisUtterance(text);
+
+  msg.onend = () => {
+    speakSequence(sentences, hotspotDiv, index + 1);
+  };
+
+  speechSynthesis.cancel();
+  setTimeout(() => speechSynthesis.speak(msg), 50);
 }
