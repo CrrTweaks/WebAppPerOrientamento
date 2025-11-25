@@ -590,21 +590,25 @@ function hotspotDiv(hotSpotDiv, args) {
 }
 
 // CREAZIONE HOTSPOT AVATAR
-function createAvatarHotspot(hotSpotDiv) {
+function createAvatarHotspot(hotSpotDiv, args) {
   const img = document.createElement("img");
   img.src = "AvatarPepper.png";
   hotSpotDiv.appendChild(img);
 
   // Mostra puntini subito all'ingresso della scena
   showTalkingDots(hotSpotDiv);
+}
 
-  const frasi = ["Benvenuti ai laboratori!", "Esplorali tutti!"];
+// Handler per il click sull'avatar
+function handleAvatarClick(e, args) {
+  const frasi = args || [];
+  const hotSpotDiv = e.target.closest(".avatarHotspot") || e.target;
 
-  hotSpotDiv.addEventListener("click", (e) => {
-    if (!window.sequenceActive) {
-      speakSequence(frasi, hotSpotDiv);
-    }
-  });
+  if (window.sequenceActive) {
+    return;
+  }
+
+  speakSequence(frasi, hotSpotDiv);
 }
 
 let speechLoopRunning = false;
@@ -624,47 +628,11 @@ function updateSpeechBoxPosition() {
   if (speechLoopRunning) requestAnimationFrame(updateSpeechBoxPosition);
 }
 
-function showSpeech(text, hotspotDiv) {
-  currentAvatar = hotspotDiv;
-
-  const box = document.getElementById("speechBox");
-  box.innerHTML = "";
-
-  if (!text) {
-    // Mostra solo i puntini
-    for (let i = 0; i < 3; i++) {
-      const dot = document.createElement("span");
-      dot.className = "speech-dot";
-      box.appendChild(dot);
-    }
-  } else {
-    const textNode = document.createElement("span");
-    textNode.innerText = text;
-    box.appendChild(textNode);
-  }
-
-  box.style.display = "flex";
-
-  if (!window.sequenceActive && text) {
-    speakText(text);
-  }
-
-  if (!speechLoopRunning) {
-    speechLoopRunning = true;
-    requestAnimationFrame(updateSpeechBoxPosition);
-  }
-
-  setTimeout(
-    () => {
-      box.style.display = "none";
-      currentAvatar = null;
-      speechLoopRunning = false;
-    },
-    text ? 6000 : 3000
-  );
-}
-
 function speakSequence(sentences, hotspotDiv, index = 0) {
+  if (index === 0) {
+    clearVoiceQueue();
+  }
+
   if (!sentences || index >= sentences.length) {
     window.sequenceActive = false;
     currentAvatar = null;
@@ -674,8 +642,11 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
   }
 
   window.sequenceActive = true;
-  const text = sentences[index];
+  currentAvatar = hotspotDiv;
+  speechLoopRunning = true;
+  requestAnimationFrame(updateSpeechBoxPosition);
 
+  const text = sentences[index];
   const msg = new SpeechSynthesisUtterance(text);
 
   msg.onstart = () => {
@@ -684,29 +655,27 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
     const textNode = document.createElement("span");
     textNode.innerText = text;
     box.appendChild(textNode);
+    box.style.display = "flex";
   };
 
   msg.onend = () => {
-    // chiama la prossima frase solo se esiste
     if (index + 1 < sentences.length) {
       speakSequence(sentences, hotspotDiv, index + 1);
     } else {
-      // ultima frase finita
       window.sequenceActive = false;
-      currentAvatar = null;
+      currentAvatar = hotspotDiv;
       speechLoopRunning = false;
       document.getElementById("speechBox").style.display = "none";
     }
   };
 
-  // Non cancellare la voce in corso
   speechSynthesis.speak(msg);
 }
 
 function showTalkingDots(hotspotDiv) {
   const box = document.getElementById("speechBox");
   currentAvatar = hotspotDiv;
-  box.innerHTML = ""; // pulisci
+  box.innerHTML = "";
 
   for (let i = 0; i < 3; i++) {
     const dot = document.createElement("span");
@@ -720,4 +689,8 @@ function showTalkingDots(hotspotDiv) {
     speechLoopRunning = true;
     requestAnimationFrame(updateSpeechBoxPosition);
   }
+}
+
+function clearVoiceQueue() {
+  speechSynthesis.cancel();
 }
