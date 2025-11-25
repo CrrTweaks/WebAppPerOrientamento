@@ -19,66 +19,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 
-    <style>
-      body {
-        font-family: "Poppins", sans-serif;
-      }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate-fadeIn {
-        animation: fadeIn 0.5s ease-in-out;
-      }
-
-      .sidebar-active {
-        background: rgba(255, 255, 255, 0.15);
-        border-left: 4px solid #38bdf8;
-        font-weight: 600;
-      }
-
-      /* Solo per i tooltip personalizzati */
-      .custom-tooltip {
-        background-color: rgba(255, 255, 255, 0.8) !important;
-        color: rgb(0, 0, 0) !important;
-        padding: 10px !important;
-        border-radius: 5px !important;
-        font-size: 14px !important;
-        width: 150px !important;
-        height: auto !important;
-        text-align: center !important;
-        pointer-events: none !important;
-        background-image: none !important;
-      }
-      .avatarHotspot img {
-        width: 120px;
-        height: auto;
-      }
-
-      /* NUVOLA */
-      #speechBox {
-        position: absolute;
-        padding: 10px 12px;
-        background: rgba(0, 0, 0, 0.75);
-        color: white;
-        border-radius: 12px;
-        max-width: 200px;
-        display: none;
-        z-index: 9999;
-        font-size: 16px;
-        text-align: center;
-        pointer-events: none;
-      }
-    </style>
-
+    <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="animations.css" />
   </head>
 

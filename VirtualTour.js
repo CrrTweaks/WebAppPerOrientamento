@@ -594,6 +594,17 @@ function createAvatarHotspot(hotSpotDiv) {
   const img = document.createElement("img");
   img.src = "AvatarPepper.png";
   hotSpotDiv.appendChild(img);
+
+  // Mostra puntini subito all'ingresso della scena
+  showTalkingDots(hotSpotDiv);
+
+  const frasi = ["Benvenuti ai laboratori!", "Esplorali tutti!"];
+
+  hotSpotDiv.addEventListener("click", (e) => {
+    if (!window.sequenceActive) {
+      speakSequence(frasi, hotSpotDiv);
+    }
+  });
 }
 
 let speechLoopRunning = false;
@@ -617,10 +628,24 @@ function showSpeech(text, hotspotDiv) {
   currentAvatar = hotspotDiv;
 
   const box = document.getElementById("speechBox");
-  box.innerText = text;
-  box.style.display = "block";
+  box.innerHTML = "";
 
-  if (!window.sequenceActive) {
+  if (!text) {
+    // Mostra solo i puntini
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement("span");
+      dot.className = "speech-dot";
+      box.appendChild(dot);
+    }
+  } else {
+    const textNode = document.createElement("span");
+    textNode.innerText = text;
+    box.appendChild(textNode);
+  }
+
+  box.style.display = "flex";
+
+  if (!window.sequenceActive && text) {
     speakText(text);
   }
 
@@ -629,43 +654,70 @@ function showSpeech(text, hotspotDiv) {
     requestAnimationFrame(updateSpeechBoxPosition);
   }
 
-  setTimeout(() => {
-    box.style.display = "none";
-    currentAvatar = null;
-    speechLoopRunning = false;
-  }, 6000);
-}
-
-function speakText(text) {
-  speechSynthesis.cancel();
-
-  setTimeout(() => {
-    const msg = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(msg);
-  }, 50);
+  setTimeout(
+    () => {
+      box.style.display = "none";
+      currentAvatar = null;
+      speechLoopRunning = false;
+    },
+    text ? 6000 : 3000
+  );
 }
 
 function speakSequence(sentences, hotspotDiv, index = 0) {
-  // Attiva sequenza
-  window.sequenceActive = true;
-
-  if (index >= sentences.length) {
+  if (!sentences || index >= sentences.length) {
     window.sequenceActive = false;
     currentAvatar = null;
     speechLoopRunning = false;
+    document.getElementById("speechBox").style.display = "none";
     return;
   }
 
+  window.sequenceActive = true;
   const text = sentences[index];
-
-  showSpeech(text, hotspotDiv);
 
   const msg = new SpeechSynthesisUtterance(text);
 
-  msg.onend = () => {
-    speakSequence(sentences, hotspotDiv, index + 1);
+  msg.onstart = () => {
+    const box = document.getElementById("speechBox");
+    box.innerHTML = "";
+    const textNode = document.createElement("span");
+    textNode.innerText = text;
+    box.appendChild(textNode);
   };
 
-  speechSynthesis.cancel();
-  setTimeout(() => speechSynthesis.speak(msg), 50);
+  msg.onend = () => {
+    // chiama la prossima frase solo se esiste
+    if (index + 1 < sentences.length) {
+      speakSequence(sentences, hotspotDiv, index + 1);
+    } else {
+      // ultima frase finita
+      window.sequenceActive = false;
+      currentAvatar = null;
+      speechLoopRunning = false;
+      document.getElementById("speechBox").style.display = "none";
+    }
+  };
+
+  // Non cancellare la voce in corso
+  speechSynthesis.speak(msg);
+}
+
+function showTalkingDots(hotspotDiv) {
+  const box = document.getElementById("speechBox");
+  currentAvatar = hotspotDiv;
+  box.innerHTML = ""; // pulisci
+
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement("span");
+    dot.className = "speech-dot";
+    box.appendChild(dot);
+  }
+
+  box.style.display = "flex";
+
+  if (!speechLoopRunning) {
+    speechLoopRunning = true;
+    requestAnimationFrame(updateSpeechBoxPosition);
+  }
 }

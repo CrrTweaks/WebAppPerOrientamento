@@ -1,0 +1,113 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.sidebar-active {
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 4px solid #38bdf8;
+  font-weight: 600;
+}
+
+/* Solo per i tooltip personalizzati */
+.custom-tooltip {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: rgb(0, 0, 0) !important;
+  padding: 10px !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  width: 150px !important;
+  height: auto !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  background-image: none !important;
+}
+.avatarHotspot img {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: auto;
+}
+
+/* NUVOLA */
+#speechBox {
+  position: absolute;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  border-radius: 12px;
+  max-width: 200px;
+  display: none;
+  z-index: 9999;
+  font-size: 16px;
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.speech-dot {
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+.speech-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.speech-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.speech-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+/* Animazione dei puntini alternati */
+.talking-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+.talking-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.talking-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
