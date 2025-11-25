@@ -39,8 +39,28 @@ body {
 .avatarHotspot img {
   position: relative;
   display: inline-block;
-  width: 120px;
+  width: 4000px;
   height: auto;
+}
+/* Smartphone */
+@media (max-width: 600px) {
+  .avatarHotspot img {
+    width: 120px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .avatarHotspot img {
+    width: 200px;
+  }
+}
+
+/* Desktop grande */
+@media (min-width: 1025px) {
+  .avatarHotspot img {
+    width: 300px;
+  }
 }
 
 /* NUVOLA */
