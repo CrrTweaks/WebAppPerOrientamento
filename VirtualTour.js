@@ -594,25 +594,6 @@ function hotspotDiv(hotSpotDiv, args) {
   hotSpotDiv.innerHTML = args;
 }
 
-// FUNZIONE CHE FA PARLARE L’AVATAR E MOSTRA LA NUVOLA
-function showSpeech(text, hotspotDiv) {
-  currentAvatar = hotspotDiv; // memorizza l’avatar usato
-
-  const box = document.getElementById("speechBox");
-  box.innerText = text;
-  box.style.display = "block";
-
-  // TTS
-  const msg = new SpeechSynthesisUtterance(text);
-  speechSynthesis.cancel();
-  speechSynthesis.speak(msg);
-
-  setTimeout(() => {
-    box.style.display = "none";
-    currentAvatar = null;
-  }, 6000);
-}
-
 // CREAZIONE HOTSPOT AVATAR
 function createAvatarHotspot(hotSpotDiv) {
   const img = document.createElement("img");
@@ -620,8 +601,13 @@ function createAvatarHotspot(hotSpotDiv) {
   hotSpotDiv.appendChild(img);
 }
 
+let speechLoopRunning = false;
+
 function updateSpeechBoxPosition() {
-  if (!currentAvatar) return;
+  if (!currentAvatar) {
+    speechLoopRunning = false;
+    return;
+  }
 
   const box = document.getElementById("speechBox");
   const rect = currentAvatar.getBoundingClientRect();
@@ -629,5 +615,37 @@ function updateSpeechBoxPosition() {
   box.style.left = rect.left + rect.width / 2 - box.offsetWidth / 2 + "px";
   box.style.top = rect.top - 40 + "px";
 
-  requestAnimationFrame(updateSpeechBoxPosition);
+  if (speechLoopRunning) requestAnimationFrame(updateSpeechBoxPosition);
+}
+
+function showSpeech(text, hotspotDiv) {
+  currentAvatar = hotspotDiv;
+
+  const box = document.getElementById("speechBox");
+  box.innerText = text;
+  box.style.display = "block";
+
+  // Avvia audio
+  speakText(text);
+
+  // Avvia il loop se non è attivo
+  if (!speechLoopRunning) {
+    speechLoopRunning = true;
+    requestAnimationFrame(updateSpeechBoxPosition);
+  }
+
+  setTimeout(() => {
+    box.style.display = "none";
+    currentAvatar = null;
+    speechLoopRunning = false;
+  }, 6000);
+}
+
+function speakText(text) {
+  speechSynthesis.cancel();
+
+  setTimeout(() => {
+    const msg = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(msg);
+  }, 50);
 }
