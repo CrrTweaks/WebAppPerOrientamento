@@ -263,15 +263,8 @@ const panoramas = {
         sceneId: "CorridoioLabSotto2",
       },
       {
-        pitch: 0,
-        yaw: 0,
-        createTooltipFunc: hotspotDiv,
-        createTooltipArgs:
-          "Benvenuti nei laboratori del Triennio. Avanza per esplorarli!",
-      },
-      {
-        pitch: -5,
-        yaw: 30,
+        pitch: -10,
+        yaw: -25,
         type: "custom",
         cssClass: "avatarHotspot",
         createTooltipFunc: createAvatarHotspot,
@@ -599,7 +592,7 @@ function hotspotDiv(hotSpotDiv, args) {
 // CREAZIONE HOTSPOT AVATAR
 function createAvatarHotspot(hotSpotDiv) {
   const img = document.createElement("img");
-  img.src = "avatar.png";
+  img.src = "AvatarPepper.png";
   hotSpotDiv.appendChild(img);
 }
 
@@ -627,7 +620,6 @@ function showSpeech(text, hotspotDiv) {
   box.innerText = text;
   box.style.display = "block";
 
-  // NON avviare audio se siamo in una sequenza
   if (!window.sequenceActive) {
     speakText(text);
   }
@@ -666,7 +658,7 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
 
   const text = sentences[index];
 
-  showSpeech(text, hotspotDiv); // mostra la vignetta ma non ripete audio
+  showSpeech(text, hotspotDiv);
 
   const msg = new SpeechSynthesisUtterance(text);
 
