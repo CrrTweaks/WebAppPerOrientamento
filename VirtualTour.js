@@ -799,7 +799,6 @@ const panoramas = {
           const frasi = [
             "Questo è il laboratorio di scenze, dedicato alle Scienze sperimentali.",
             "Gli studenti svolgono analisi, campioni biologici, osservazioni al microscopio.",
-            "È uno dei laboratori più attivi del biennio — guardati attorno!",
           ];
 
           speakSequence(frasi, e.target);
@@ -931,8 +930,8 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/Aula_Educazione_Fisica.jpg",
     hotSpots: [
       {
-        pitch: -10,
-        yaw: -25,
+        pitch: -20,
+        yaw: 0,
         type: "custom",
         cssClass: "avatarHotspot",
         createTooltipFunc: createAvatarHotspot,
