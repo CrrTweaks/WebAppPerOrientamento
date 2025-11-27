@@ -106,17 +106,17 @@ function isMobileOrTablet() {
 }
 
 // Blocco accesso desktop
-function checkDeviceAndBlock() {
-  const desktopBlock = document.getElementById("desktop-block");
-  if (!isMobileOrTablet()) {
-    desktopBlock.classList.remove("hidden");
-  } else {
-    desktopBlock.classList.add("hidden");
-  }
-}
+//function checkDeviceAndBlock() {
+//const desktopBlock = document.getElementById("desktop-block");
+//if (!isMobileOrTablet()) {
+//desktopBlock.classList.remove("hidden");
+//} else {
+//desktopBlock.classList.add("hidden");
+//}
+//}
 
 // Controlla al caricamento della pagina
-window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
+//window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
 
 // Controlla anche quando si ridimensiona la finestra
-window.addEventListener("resize", checkDeviceAndBlock);
+//window.addEventListener("resize", checkDeviceAndBlock);
