@@ -88,7 +88,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // compatibilità con VirtualTour.js e HTML che usano setState()
 window.setState = showPage;
 
-function isMobileOrTablet() {
+/*function isMobileOrTablet() {
   const userAgent = navigator.userAgent.toLowerCase();
   const isMobile =
     /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
@@ -103,7 +103,7 @@ function isMobileOrTablet() {
     "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
   return isMobile || isTablet || (screenWidth <= 1024 && isTouchDevice);
-}
+//}
 
 // Blocco accesso desktop
 //function checkDeviceAndBlock() {
@@ -120,3 +120,4 @@ function isMobileOrTablet() {
 
 // Controlla anche quando si ridimensiona la finestra
 //window.addEventListener("resize", checkDeviceAndBlock);
+*/
