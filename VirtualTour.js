@@ -863,7 +863,7 @@ const panoramas = {
         createTooltipFunc: createAvatarHotspot,
         clickHandlerFunc: function (e) {
           const frasi = [
-            "Benvenuto nel laboratorio Pagano!",
+            "Benvenuto nel laboratorio di tecnologia!",
             "Qui si apprendono tecniche costruttive e pratiche di lavorazione dei materiali.",
             "Dai un’occhiata ai banchi da lavoro: spesso diventano luoghi di invenzione!",
           ];
