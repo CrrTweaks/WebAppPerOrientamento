@@ -799,6 +799,7 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
   responsiveVoice.speak(text, "Italian Male", {
     rate: 0.95,
     pitch: 1.1,
+    queue: false,
     onend: () => {
       // Passa alla frase successiva
       speakSequence(sentences, hotspotDiv, index + 1);
