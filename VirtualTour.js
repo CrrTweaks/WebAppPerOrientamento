@@ -714,6 +714,14 @@ function loadPanoramaFull(sceneId) {
     scenes: panoramas,
   });
 
+  fullViewer.on("scenechange", () => {
+    clearVoiceQueue();
+    window.sequenceActive = false;
+    currentAvatar = null;
+    speechLoopRunning = false;
+    document.getElementById("speechBox").style.display = "none";
+  });
+
   fullViewer.on("animatefinished", updateSpeechBoxPosition);
   fullViewer.on("yawchange", updateSpeechBoxPosition);
   fullViewer.on("pitchchange", updateSpeechBoxPosition);
