@@ -2,6 +2,24 @@
 let fullViewer;
 let currentAvatar = null;
 
+let availableVoices = [];
+
+console.log("start");
+
+function loadVoices() {
+  availableVoices = speechSynthesis.getVoices();
+  if (availableVoices.length > 0) {
+    console.log("Voci trovate", availableVoices);
+    return;
+  }
+  console.log("⏳ Nessuna voce trovata, ritento...");
+  setTimeout(loadVoices, 200);
+}
+
+loadVoices();
+
+speechSynthesis.onvoiceschanged = loadVoices;
+
 // Biennio e Triennio
 const panoramas = {
   // Corridoi e laboratori Triennio
@@ -754,10 +772,6 @@ function updateSpeechBoxPosition() {
 }
 
 function speakSequence(sentences, hotspotDiv, index = 0) {
-  if (index === 0) {
-    clearVoiceQueue();
-  }
-
   if (!sentences || index >= sentences.length) {
     window.sequenceActive = false;
     currentAvatar = null;
@@ -772,29 +786,24 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
   requestAnimationFrame(updateSpeechBoxPosition);
 
   const text = sentences[index];
-  const msg = new SpeechSynthesisUtterance(text);
 
-  msg.onstart = () => {
-    const box = document.getElementById("speechBox");
-    box.innerHTML = "";
-    const textNode = document.createElement("span");
-    textNode.innerText = text;
-    box.appendChild(textNode);
-    box.style.display = "flex";
-  };
+  // Mostra testo nel box
+  const box = document.getElementById("speechBox");
+  box.innerHTML = "";
+  const textNode = document.createElement("span");
+  textNode.innerText = text;
+  box.appendChild(textNode);
+  box.style.display = "flex";
 
-  msg.onend = () => {
-    if (index + 1 < sentences.length) {
+  // Usa ResponsiveVoice
+  responsiveVoice.speak(text, "Italian Male", {
+    rate: 0.95,
+    pitch: 1.1,
+    onend: () => {
+      // Passa alla frase successiva
       speakSequence(sentences, hotspotDiv, index + 1);
-    } else {
-      window.sequenceActive = false;
-      currentAvatar = hotspotDiv;
-      speechLoopRunning = false;
-      document.getElementById("speechBox").style.display = "none";
-    }
-  };
-
-  speechSynthesis.speak(msg);
+    },
+  });
 }
 
 function showTalkingDots(hotspotDiv) {
@@ -818,4 +827,5 @@ function showTalkingDots(hotspotDiv) {
 
 function clearVoiceQueue() {
   speechSynthesis.cancel();
+  responsiveVoice.cancel();
 }
