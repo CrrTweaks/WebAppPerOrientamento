@@ -1,21 +1,25 @@
 {
   "name": "I.I.S. G. Marconi Beta Version",
   "short_name": "MarconiApp",
+  "description": "App ufficiale dell'Istituto G. Marconi",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0A4C9A",
   "theme_color": "#0A4C9A",
   "icons": [
     {
-      "src": "img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+      "src": "/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     },
     {
-      "src": "img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+      "src": "/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }
