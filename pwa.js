@@ -84,7 +84,7 @@ class PWAInstaller {
 
   getInstallModalHTML() {
     return `
-            <div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[10000] p-4 animate-fadeIn">
+            <div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[99999] p-4 animate-fadeIn">
                 <div class="bg-white rounded-3xl p-6 max-w-md w-full transform transition-all duration-300 scale-95 animate-scaleIn">
                     <div class="flex justify-center mb-4">
                         <div class="text-6xl bg-gradient-to-br from-blue-500 to-blue-700 text-white p-4 rounded-2xl">📱</div>
@@ -301,7 +301,7 @@ class PWAInstaller {
   showToast(message, duration = 3000) {
     const toast = document.createElement("div");
     toast.innerHTML = `
-            <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-lg z-[10000] max-w-md animate-fadeInUp">
+            <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-lg z-[99999] max-w-md animate-fadeInUp">
                 ${message}
             </div>
         `;
