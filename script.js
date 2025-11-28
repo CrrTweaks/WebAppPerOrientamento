@@ -87,3 +87,36 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // compatibilità con VirtualTour.js e HTML che usano setState()
 window.setState = showPage;
+
+function isMobileOrTablet() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isMobile =
+    /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+      userAgent
+    );
+  const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(
+    userAgent
+  );
+
+  const screenWidth = window.innerWidth;
+  const isTouchDevice =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+  return isMobile || isTablet || (screenWidth <= 1024 && isTouchDevice);
+}
+
+// Blocco accesso desktop
+function checkDeviceAndBlock() {
+  const desktopBlock = document.getElementById("desktop-block");
+  if (!isMobileOrTablet()) {
+    desktopBlock.classList.remove("hidden");
+  } else {
+    desktopBlock.classList.add("hidden");
+  }
+}
+
+// Controlla al caricamento della pagina
+window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
+
+// Controlla anche quando si ridimensiona la finestra
+window.addEventListener("resize", checkDeviceAndBlock);
