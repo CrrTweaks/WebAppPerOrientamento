@@ -1,25 +1,53 @@
 {
-  "name": "I.I.S. G. Marconi Beta Version",
-  "short_name": "MarconiApp",
-  "description": "App ufficiale dell'Istituto G. Marconi",
+  "name": "I.I.S. G. Marconi",
+  "short_name": "Marconi App",
+  "description": "App ufficiale I.I.S. G. Marconi - Tour virtuale e informazioni",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
   "orientation": "portrait",
-  "background_color": "#0A4C9A",
-  "theme_color": "#0A4C9A",
+  "scope": "/",
   "icons": [
     {
-      "src": "/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     },
     {
-      "src": "/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }

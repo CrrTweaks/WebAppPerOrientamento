@@ -1,22 +1,31 @@
-const CACHE = "marconi-pwa-v1";
-const ASSETS = [
+const CACHE_NAME = "marconi-app-v1.0";
+const urlsToCache = [
   "/",
   "/index.html",
   "/index.css",
   "/animations.css",
   "/script.js",
   "/VirtualTour.js",
-  "/icons/192.png",
-  "/icons/512.png",
-  "/img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+  "/animations.js",
+  "/manifest.json",
+  "/pwa.js",
 ];
 
-// Installa SW e salva cache
-self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
+self.addEventListener("install", function (event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(urlsToCache);
+    })
+  );
 });
 
-// Recupero offline
-self.addEventListener("fetch", (e) => {
-  e.respondWith(caches.match(e.request).then((r) => r || fetch(e.request)));
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (response) {
+      if (response) {
+        return response;
+      }
+      return fetch(event.request);
+    })
+  );
 });

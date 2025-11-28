@@ -24,77 +24,18 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="animations.css" />
 
-    <!-- PWA -->
+    <!-- Aggiungi queste righe nell'head -->
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#0A4C9A" />
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("service-worker.js")
-            .then(() => console.log("Service Worker registrato"))
-            .catch((err) => console.log("Errore SW", err));
-        });
-      }
-    </script>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Marconi App" />
+    <link rel="apple-touch-icon" href="icons/ios/152.png" />
+    <meta name="msapplication-TileImage" content="icons/ios/144.png" />
+    <meta name="msapplication-TileColor" content="#1e3a8a" />
+    <meta name="theme-color" content="#1e3a8a" />
   </head>
 
   <body class="bg-gray-100 flex flex-col md:flex-row">
-    <!-- OVERLAY INSTALLA APP (mostrato solo al primo avvio) -->
-    <div
-      id="install-screen"
-      style="
-        position: fixed;
-        inset: 0;
-        background: #0a4c9a;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 22px;
-        text-align: center;
-        z-index: 99999;
-        font-family: Poppins;
-      "
-    >
-      <h1 style="font-size: 28px; font-weight: 600">
-        📱 Installa la beta del App del Marconi
-      </h1>
-      <p style="max-width: 300px; line-height: 1.4">
-        Aggiungila alla schermata Home per usarla come un'app veloce e offline.
-      </p>
-
-      <button
-        id="installBtn"
-        style="
-          background: white;
-          color: #0a4c9a;
-          padding: 12px 20px;
-          font-size: 18px;
-          border-radius: 10px;
-          font-weight: 600;
-          cursor: pointer;
-        "
-      >
-        ➕ Aggiungi alla schermata Home
-      </button>
-
-      <button
-        id="closeInstall"
-        style="
-          margin-top: 5px;
-          color: white;
-          font-size: 15px;
-          text-decoration: underline;
-          cursor: pointer;
-        "
-      >
-        Continua senza installare
-      </button>
-    </div>
-
     <!-- MOBILE HEADER -->
     <header
       class="md:hidden bg-blue-900 text-white flex items-center justify-between p-4 fixed top-0 left-0 w-full z-50"
@@ -1179,6 +1120,5 @@
     <script src="VirtualTour.js"></script>
     <script src="animations.js"></script>
     <script src="pwa.js"></script>
-    <script src="service-worker.js"></script>
   </body>
 </html>
