@@ -2,6 +2,10 @@
 let fullViewer;
 let currentAvatar = null;
 
+let availableVoices = [];
+
+console.log("start");
+
 // Biennio e Triennio
 const panoramas = {
   // Corridoi e laboratori Triennio
@@ -11,6 +15,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/CorridoiLabTriennio/CorridoioLabSopra2.jpg",
     autoLoad: true,
     hotSpots: [
+      {
+        pitch: -10,
+        yaw: -25,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Qui ci sono i laboratori informatici e di sistemi.",
+            "Puoi esplorare ogni laboratorio cliccando sui punti.",
+            "Muoviti liberamente per scoprire gli ambienti.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -10,
         yaw: -109,
@@ -54,6 +74,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/CorridoiLabTriennio/CorridoioLabSopra1.jpg",
     hotSpots: [
       {
+        pitch: -15,
+        yaw: 0,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Stai percorrendo il corridoio dei laboratori del triennio.",
+            "Da qui puoi scendere o proseguire verso altri laboratori.",
+            "Scegli una direzione e continua il tour!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -13,
         yaw: -162,
         type: "scene",
@@ -80,6 +116,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/triennio/CorridoiLabTriennio/CorridoioLabSotto2.jpg",
     hotSpots: [
+      {
+        pitch: -10,
+        yaw: -40,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Sei nel piano inferiore dei laboratori.",
+            "Qui trovi Informatica, Elettrotecnica, Progettazione e altri spazi tecnici.",
+            "Entra nei laboratori e scopri cosa si studia nel triennio.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -7,
         yaw: 27,
@@ -122,13 +174,6 @@ const panoramas = {
         text: "Torna all'ingresso dei laboratori",
         sceneId: "ingresso_Lab",
       },
-      {
-        pitch: 30,
-        yaw: -10,
-        createTooltipFunc: hotspotDiv,
-        createTooltipArgs:
-          "Qui troverai 4 laboratori specializzati. Ed la possibilità di salire al piano superiore.",
-      },
     ],
   },
   laboratorio_sistemi: {
@@ -136,6 +181,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioSistemi.jpg",
     hotSpots: [
+      {
+        pitch: -15,
+        yaw: 200,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il laboratorio di Sistemi!",
+            "Qui si studiano reti, protocolli, domotica e automazione.",
+            "Dai un’occhiata alle postazioni e agli strumenti utilizzati.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -7,
         yaw: 520,
@@ -151,6 +212,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioInformatica.jpg",
     hotSpots: [
       {
+        pitch: -15,
+        yaw: 145,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nel laboratorio di Informatica!",
+            "Qui si programmano software, siti web e applicazioni.",
+            "Guarda le postazioni e immagina cosa potresti creare!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -7,
         yaw: 590,
         type: "scene",
@@ -164,6 +241,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioTelecomunicazioni.jpg",
     hotSpots: [
+      {
+        pitch: -15,
+        yaw: 110,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Ti trovi nel laboratorio di Telecomunicazioni.",
+            "Qui si studiano antenne, onde radio, fibra ottica e reti mobili.",
+            "Un ambiente perfetto per capire come viaggia l'informazione nel mondo.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -3,
         yaw: 68,
@@ -179,6 +272,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioSistemiElettrici.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: 45,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo laboratorio è dedicato ai sistemi elettrici.",
+            "Qui si studiano impianti, circuiti e dispositivi elettronici.",
+            "Esplora l'ambiente e osserva gli strumenti utilizzati dagli studenti.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -7,
         yaw: 75,
         type: "scene",
@@ -192,6 +301,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/laboratorioElettrotecnicaEdElettronica1.jpg",
     hotSpots: [
+      {
+        pitch: -15,
+        yaw: 100,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il laboratorio di Elettrotecnica ed Elettronica.",
+            "Qui si progettano circuiti, impianti e sistemi elettrici.",
+            "Esplora le attrezzature e scopri come nascono i progetti!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -7,
         yaw: 75,
@@ -214,6 +339,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/laboratorioElettrotecnicaEdElettronica2.jpg",
     hotSpots: [
       {
+        pitch: -15,
+        yaw: 130,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nell’area di Alta Tensione.",
+            "Qui si effettuano prove e simulazioni su circuiti e trasformatori.",
+            "Osserva le postazioni e gli strumenti per esperimenti avanzati!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -7,
         yaw: 95,
         type: "scene",
@@ -228,6 +369,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LabboratorioElettroTecnica.jpg",
     hotSpots: [
       {
+        pitch: -18,
+        yaw: 95,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nel laboratorio di Elettrotecnica.",
+            "Qui gli studenti imparano a progettare circuiti e impianti elettrici.",
+            "Esplora le postazioni per vedere i progetti in corso.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -3,
         yaw: -100,
         type: "scene",
@@ -241,6 +398,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/triennio/LaboratoriTriennio/LaboratorioProgettazioneElettrotecnica.jpg",
     hotSpots: [
+      {
+        pitch: -20,
+        yaw: 25,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il laboratorio di Progettazione Elettrotecnica.",
+            "Qui si progettano e simulano impianti elettrici e sistemi complessi.",
+            "Guarda i progetti e scopri come nascono le soluzioni tecniche!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -3,
         yaw: 0,
@@ -269,7 +442,11 @@ const panoramas = {
         cssClass: "avatarHotspot",
         createTooltipFunc: createAvatarHotspot,
         clickHandlerFunc: function (e) {
-          const frasi = ["Benvenuti ai laboratori!", "Esplorali tutti!"];
+          const frasi = [
+            "Benvenuto nell’area laboratori del triennio!",
+            "Qui trovi i laboratori tecnici della scuola.",
+            "Entra e scopri cosa si studia e si realizza in ciascun laboratorio!",
+          ];
 
           speakSequence(frasi, e.target);
         },
@@ -284,6 +461,22 @@ const panoramas = {
       "/img/fotoPanoramiche/triennio/PrincipaleTriennio/EntrataPrincipale.jpg",
     autoLoad: true,
     hotSpots: [
+      {
+        pitch: -10,
+        yaw: -25,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto all'ingresso principale del triennio!",
+            "Qui iniziano i percorsi dei laboratori e delle aule specialistiche.",
+            "Esplora la scuola cliccando sui punti interattivi per saperne di più.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: 1,
         yaw: -18,
@@ -300,6 +493,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioFisicaRobotica.jpg",
     hotSpots: [
+      {
+        pitch: -20,
+        yaw: -25,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il corridoio dei laboratori del biennio.",
+            "Da qui puoi accedere ai laboratori di Fisica e Robotica.",
+            "Segui i punti per esplorare ogni ambiente e conoscere le attività degli studenti.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -1,
         yaw: 52,
@@ -336,6 +545,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioRobotica.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: -30,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nel laboratorio di Robotica!",
+            "Qui si progettano e programmano robot e automazioni meccaniche.",
+            "Guarda i tavoli di lavoro: spesso qui nascono piccole macchine intelligenti.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -9,
         yaw: 135,
         type: "scene",
@@ -350,6 +575,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioFisica.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: -7,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Ti trovi nel laboratorio di Fisica.",
+            "Qui si sperimentano leggi del moto, ottica, energia e fenomeni scientifici reali.",
+            "Gli studenti utilizzano strumenti di misura per trasformare la teoria in pratica.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -6,
         yaw: 110,
         type: "scene",
@@ -363,6 +604,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioChimica.jpg",
     hotSpots: [
+      {
+        pitch: -20,
+        yaw: -13,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il corridoio che porta al laboratorio di Chimica.",
+            "Gli studenti qui svolgono esperimenti con soluzioni, elementi e reazioni chimiche.",
+            "Puoi entrare nel laboratorio per scoprirne attività e strumenti.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -1,
         yaw: 5,
@@ -385,6 +642,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioChimica.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: -60,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nel laboratorio di Chimica!",
+            "Qui si analizzano materiali, sostanze e reazioni chimiche in piena sicurezza.",
+            "Sui banchi si svolgono esperienze pratiche con provette, beute e reagenti reali.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -6,
         yaw: -143,
         type: "scene",
@@ -398,6 +671,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioInformatica.jpg",
     hotSpots: [
+      {
+        pitch: -20,
+        yaw: 60,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo corridoio conduce al laboratorio informatico del biennio.",
+            "Qui si muovono i primi passi nella programmazione e nell’uso avanzato del PC.",
+            "Segui i punti per entrare e toccare con mano la tecnologia della scuola.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -10,
         yaw: 20,
@@ -427,6 +716,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioInformatica.jpg",
     hotSpots: [
       {
+        pitch: -15,
+        yaw: 50,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Ti trovi nel laboratorio di Informatica del biennio.",
+            "Qui gli studenti imparano a utilizzare il computer, i software applicativi e le basi della programmazione.",
+            "È il primo passo nel mondo digitale dell’istituto: esplora le postazioni attorno a te.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -5,
         yaw: 153,
         type: "scene",
@@ -440,6 +745,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioCantarella.jpg",
     hotSpots: [
+      {
+        pitch: -20,
+        yaw: 65,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto al corridoio dei laboratori scientifici avanzati.",
+            "Qui trovi il laboratorio di scenze dedicato alle Scienze sperimentali.",
+            "Segui i punti interattivi per esplorare ogni ambiente.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -10,
         yaw: 3,
@@ -469,6 +790,21 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioCantarella.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: -80,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo è il laboratorio di scenze, dedicato alle Scienze sperimentali.",
+            "Gli studenti svolgono analisi, campioni biologici, osservazioni al microscopio.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -5,
         yaw: -45,
         type: "scene",
@@ -482,6 +818,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/CorridoiLabBiennio/CorridoioPagano.jpg",
     hotSpots: [
+      {
+        pitch: -17,
+        yaw: 80,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Questo corridoio conduce al laboratorio di Tecnologia.",
+            "Gli studenti qui realizzano progetti pratici e tecnologici.",
+            "Esplora le postazioni e scopri cosa si crea in questo laboratorio.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -10,
         yaw: 40,
@@ -504,6 +856,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/LaboratorioPagano.jpg",
     hotSpots: [
       {
+        pitch: -15,
+        yaw: 90,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto nel laboratorio di tecnologia!",
+            "Qui si apprendono tecniche costruttive e pratiche di lavorazione dei materiali.",
+            "Dai un’occhiata ai banchi da lavoro: spesso diventano luoghi di invenzione!",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -2,
         yaw: 157,
         type: "scene",
@@ -517,6 +885,22 @@ const panoramas = {
     panorama:
       "/img/fotoPanoramiche/Biennio/PrincipaleBiennio/IngressoBiennio.jpg",
     hotSpots: [
+      {
+        pitch: -10,
+        yaw: -25,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Benvenuto all’ingresso del biennio!",
+            "Da qui puoi accedere a tutti i laboratori e alle aule del piano.",
+            "Segui i punti interattivi per iniziare il tuo tour della scuola.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
       {
         pitch: -2,
         yaw: 162,
@@ -546,6 +930,22 @@ const panoramas = {
       "/img/fotoPanoramiche/Biennio/LaboratoriBiennio/Aula_Educazione_Fisica.jpg",
     hotSpots: [
       {
+        pitch: -20,
+        yaw: 0,
+        type: "custom",
+        cssClass: "avatarHotspot",
+        createTooltipFunc: createAvatarHotspot,
+        clickHandlerFunc: function (e) {
+          const frasi = [
+            "Sei nell’aula di educazione fisica.",
+            "Qui si svolgono attività sportive e di movimento per tutti gli studenti.",
+            "Osserva lo spazio e scopri le attrezzature disponibili per l’attività fisica.",
+          ];
+
+          speakSequence(frasi, e.target);
+        },
+      },
+      {
         pitch: -5,
         yaw: 173,
         type: "scene",
@@ -569,6 +969,14 @@ function loadPanoramaFull(sceneId) {
     },
     autoLoad: true,
     scenes: panoramas,
+  });
+
+  fullViewer.on("scenechange", () => {
+    clearVoiceQueue();
+    window.sequenceActive = false;
+    currentAvatar = null;
+    speechLoopRunning = false;
+    document.getElementById("speechBox").style.display = "none";
   });
 
   fullViewer.on("animatefinished", updateSpeechBoxPosition);
@@ -629,10 +1037,6 @@ function updateSpeechBoxPosition() {
 }
 
 function speakSequence(sentences, hotspotDiv, index = 0) {
-  if (index === 0) {
-    clearVoiceQueue();
-  }
-
   if (!sentences || index >= sentences.length) {
     window.sequenceActive = false;
     currentAvatar = null;
@@ -647,29 +1051,25 @@ function speakSequence(sentences, hotspotDiv, index = 0) {
   requestAnimationFrame(updateSpeechBoxPosition);
 
   const text = sentences[index];
-  const msg = new SpeechSynthesisUtterance(text);
 
-  msg.onstart = () => {
-    const box = document.getElementById("speechBox");
-    box.innerHTML = "";
-    const textNode = document.createElement("span");
-    textNode.innerText = text;
-    box.appendChild(textNode);
-    box.style.display = "flex";
-  };
+  // Mostra testo nel box
+  const box = document.getElementById("speechBox");
+  box.innerHTML = "";
+  const textNode = document.createElement("span");
+  textNode.innerText = text;
+  box.appendChild(textNode);
+  box.style.display = "flex";
 
-  msg.onend = () => {
-    if (index + 1 < sentences.length) {
+  // Usa ResponsiveVoice
+  responsiveVoice.speak(text, "Italian Male", {
+    rate: 0.95,
+    pitch: 1.1,
+    queue: false,
+    onend: () => {
+      // Passa alla frase successiva
       speakSequence(sentences, hotspotDiv, index + 1);
-    } else {
-      window.sequenceActive = false;
-      currentAvatar = hotspotDiv;
-      speechLoopRunning = false;
-      document.getElementById("speechBox").style.display = "none";
-    }
-  };
-
-  speechSynthesis.speak(msg);
+    },
+  });
 }
 
 function showTalkingDots(hotspotDiv) {
@@ -693,4 +1093,5 @@ function showTalkingDots(hotspotDiv) {
 
 function clearVoiceQueue() {
   speechSynthesis.cancel();
+  responsiveVoice.cancel();
 }
