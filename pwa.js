@@ -2,55 +2,77 @@ let deferredPrompt;
 const installUI = document.getElementById("install-pwa");
 const installBtn = document.getElementById("installBtn");
 
-// Nascondi il banner se app già installata
-if (window.matchMedia("(display-mode: standalone)").matches) {
-  console.log("✅ App già installata");
-  installUI.remove();
+// ========== DEBUG (RIMUOVI DOPO) ==========
+console.log("🔍 PWA CHECK:");
+console.log(
+  "1. HTTPS:",
+  location.protocol === "https:" || location.hostname === "localhost"
+);
+console.log("2. Service Worker:", "serviceWorker" in navigator);
+console.log(
+  "3. Manifest:",
+  document.querySelector('link[rel="manifest"]') !== null
+);
+
+// Test Service Worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistration().then((reg) => {
+    console.log("4. SW Registrato:", !!reg);
+    if (reg) console.log("   SW Attivo:", reg.active !== null);
+  });
 }
 
-// Cattura l'evento di installazione
+// Test Manifest
+fetch("/manifest.json")
+  .then((r) => r.json())
+  .then((m) => {
+    console.log("5. Manifest OK:", m.name);
+    console.log("   Icons:", m.icons?.length || 0);
+  })
+  .catch((e) => console.error("❌ Manifest errore:", e));
+
+// Test Icons
+fetch("/icons/icon-192x192.png")
+  .then((r) => console.log("6. Icon 192:", r.ok ? "✅" : "❌"))
+  .catch(() => console.error("❌ Icon 192 mancante!"));
+
+fetch("/icons/icon-512x512.png")
+  .then((r) => console.log("7. Icon 512:", r.ok ? "✅" : "❌"))
+  .catch(() => console.error("❌ Icon 512 mancante!"));
+
+// Attendi evento
+let eventReceived = false;
+setTimeout(() => {
+  if (!eventReceived) {
+    console.error("❌ beforeinstallprompt NON ricevuto dopo 3s");
+    console.log("💡 Controlla i log sopra - qualcosa manca");
+  }
+}, 3000);
+// ========== FINE DEBUG ==========
+
+// Intercetta install prompt
 window.addEventListener("beforeinstallprompt", (e) => {
-  console.log("🎉 PWA installabile!");
+  eventReceived = true;
+  console.log("✅ beforeinstallprompt ricevuto!");
 
-  // Previeni il prompt automatico
   e.preventDefault();
-
-  // Salva l'evento per usarlo dopo
   deferredPrompt = e;
 
-  // Mostra il banner personalizzato
+  // Mostra il pannello
   installUI.style.display = "flex";
 });
 
-// Click sul bottone Installa
-installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) {
-    console.error("❌ Prompt non disponibile");
-    alert("L'installazione non è disponibile. Usa il menu del browser.");
-    return;
-  }
-
-  // Nascondi il banner
+// Quando cliccano INSTALLA
+installBtn.addEventListener("click", () => {
   installUI.style.display = "none";
-
-  // Mostra il prompt nativo del browser
   deferredPrompt.prompt();
 
-  // Aspetta la scelta dell'utente
-  const { outcome } = await deferredPrompt.userChoice;
-
-  console.log(
-    outcome === "accepted" ? "✅ App installata!" : "❌ Installazione annullata"
-  );
-
-  // Reset
-  deferredPrompt = null;
+  deferredPrompt.userChoice.then((result) => {
+    console.log(
+      result.outcome === "accepted"
+        ? "📌 Utente ha installato l'app"
+        : "❌ Installazione rifiutata"
+    );
+    deferredPrompt = null;
+  });
 });
-
-// Rileva installazione completata
-window.addEventListener("appinstalled", () => {
-  console.log("🎊 App installata con successo!");
-  installUI.style.display = "none";
-});
-
-console.log("📱 PWA pronta");
