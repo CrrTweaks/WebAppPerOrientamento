@@ -77,7 +77,7 @@ function updateMobileHeaderTitle(title) {
     headerTitle.textContent = title;
   }
 }
-
+/*
 // All'avvio della pagina
 window.addEventListener("DOMContentLoaded", () => {
   const savedPage = sessionStorage.getItem("currentPage") || "home";
@@ -120,3 +120,4 @@ window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
 
 // Controlla anche quando si ridimensiona la finestra
 window.addEventListener("resize", checkDeviceAndBlock);
+*/
