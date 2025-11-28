@@ -23,6 +23,8 @@
 
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="animations.css" />
+
+    <link rel="manifest" href="manifest.json" />
   </head>
 
   <body class="bg-gray-100 flex flex-col md:flex-row">
@@ -113,6 +115,38 @@
       class="flex-1 bg-gradient-to-br from-blue-500 to-blue-900 min-h-screen flex justify-center items-start p-6 text-white md:ml-64"
     >
       <div class="w-full max-w-5xl text-center">
+        <!-- BLOCCO INSTALLA PWA -->
+        <div
+          id="install-pwa"
+          class="fixed inset-0 bg-black/70 backdrop-blur-xl flex justify-center items-center z-[9999] hidden"
+        >
+          <div
+            class="bg-white/10 p-8 rounded-3xl border border-white/20 shadow-2xl text-center max-w-md w-[90%] animate-fadeIn"
+          >
+            <div class="text-6xl mb-3">📲</div>
+            <h2 class="text-3xl font-bold text-white mb-2">Installa l'app</h2>
+            <p class="text-blue-100 mb-6 leading-relaxed">
+              Aggiungi questa WebApp alla schermata principale per un accesso
+              rapido e più fluido.
+            </p>
+
+            <!-- Bottone installazione -->
+            <button
+              id="installBtn"
+              class="px-6 py-3 bg-cyan-400 hover:bg-cyan-300 text-black font-semibold rounded-xl text-lg transition"
+            >
+              ➕ Installa ora
+            </button>
+
+            <button
+              onclick="document.getElementById('install-pwa').style.display='none'"
+              class="mt-3 text-blue-200 underline hover:text-white text-sm"
+            >
+              Continua senza installare
+            </button>
+          </div>
+        </div>
+
         <!-- Redesigned Desktop Block Screen -->
         <div
           id="desktop-block"
@@ -1131,5 +1165,6 @@
     <script src="script.js"></script>
     <script src="VirtualTour.js"></script>
     <script src="animations.js"></script>
+    <script src="pwa.js"></script>
   </body>
 </html>

@@ -120,3 +120,8 @@ window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
 
 // Controlla anche quando si ridimensiona la finestra
 window.addEventListener("resize", checkDeviceAndBlock);
+
+// Service-worker per PWA
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
