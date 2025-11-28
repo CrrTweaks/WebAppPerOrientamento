@@ -180,3 +180,24 @@ body {
 #pwa-install-modal {
   backdrop-filter: blur(4px);
 }
+
+/* Blocco desktop come sezione normale, non sovrapposta */
+#desktop-block {
+  position: relative !important;
+  z-index: 40 !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Nascondi il main quando il blocco è attivo */
+#desktop-block:not(.hidden) + main {
+  display: none !important;
+}
+
+/* Mostra il main quando il blocco è nascosto */
+#desktop-block.hidden + main {
+  display: flex !important;
+}
