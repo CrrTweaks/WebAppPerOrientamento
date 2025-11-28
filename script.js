@@ -122,6 +122,38 @@ window.addEventListener("DOMContentLoaded", checkDeviceAndBlock);
 window.addEventListener("resize", checkDeviceAndBlock);
 
 // Service-worker per PWA
+// Service Worker registration con gestione errori completa
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log(
+          "✅ Service Worker registrato con successo:",
+          registration.scope
+        );
+
+        // Controlla aggiornamenti
+        registration.addEventListener("updatefound", () => {
+          const newWorker = registration.installing;
+          console.log(
+            "🔄 Nuovo Service Worker trovato, installazione in corso..."
+          );
+
+          newWorker.addEventListener("statechange", () => {
+            if (newWorker.state === "activated") {
+              console.log("✅ Nuovo Service Worker attivato");
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.error("❌ Registrazione Service Worker fallita:", error);
+        console.log(
+          "Verifica che il file service-worker.js esista nella root del sito"
+        );
+      });
+  });
+} else {
+  console.warn("⚠️ Service Worker non supportato da questo browser");
 }
