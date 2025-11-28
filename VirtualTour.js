@@ -848,6 +848,7 @@ const panoramas = {
         text: "Torna indietro",
         sceneId: "CorridoioLabCantarella",
       },
+      4,
     ],
   },
   Laboratorio_Pagano: {

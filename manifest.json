@@ -1,0 +1,21 @@
+{
+  "name": "I.I.S. G. Marconi Beta Version",
+  "short_name": "MarconiApp",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A4C9A",
+  "theme_color": "#0A4C9A",
+  "icons": [
+    {
+      "src": "img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "img/logoScuola/LOGO_IIS_G_Marconi-2.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
