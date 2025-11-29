@@ -132,27 +132,52 @@ body {
   }
 }
 
-/* Fix hotspot visibility - blu con freccia bianca */
+/* FORZA TEMA CHIARO - Fix hotspot visibility */
+.pnlm-hotspot-base {
+  background-color: #3b82f6 !important;
+  border: 3px solid white !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+}
+
 .pnlm-hotspot {
-  background-color: rgba(59, 130, 246, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.8) !important;
-  color: white !important;
+  background: #3b82f6 !important;
+  border: 3px solid white !important;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.8) !important;
 }
 
 .pnlm-hotspot:hover {
-  background-color: rgba(37, 99, 235, 1) !important;
+  background: #2563eb !important;
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 1) !important;
 }
 
-/* Freccia degli hotspot scene - bianca */
-.pnlm-hotspot.pnlm-sprite.pnlm-scene::after {
+/* Forza sprite della freccia - inversione totale */
+.pnlm-sprite {
   filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
 }
 
-/* Testo degli hotspot - bianco */
+.pnlm-scene {
+  background: #3b82f6 !important;
+}
+
+/* Testo tooltip - completamente forzato */
+.pnlm-tooltip span,
 .pnlm-hotspot-text {
   color: white !important;
-  background-color: rgba(59, 130, 246, 0.95) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  padding: 8px 12px !important;
-  border-radius: 8px !important;
+  background: #3b82f6 !important;
+  border: 2px solid white !important;
+  padding: 10px 15px !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Container panorama - forza sfondo chiaro */
+.pnlm-container,
+#panorama-container-full,
+.pnlm-render-container {
+  background: transparent !important;
 }
