@@ -132,52 +132,37 @@ body {
   }
 }
 
-/* FORZA TEMA CHIARO - Fix hotspot visibility */
-.pnlm-hotspot-base {
-  background-color: #3b82f6 !important;
-  border: 3px solid white !important;
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50% !important;
+/* FORZARE TEMA CHIARO HOTSPOT PANNELLUM - SOLO PER HOTSPOT DI NAVIGAZIONE */
+.pnlm-hotspot-base:not(.avatarHotspot) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(0, 0, 0, 0.2) !important;
+  color: #000 !important;
 }
 
-.pnlm-hotspot {
-  background: #3b82f6 !important;
-  border: 3px solid white !important;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.8) !important;
+.pnlm-hotspot-base:not(.avatarHotspot):hover {
+  background-color: rgba(255, 255, 255, 1) !important;
+  border-color: #38bdf8 !important;
 }
 
-.pnlm-hotspot:hover {
-  background: #2563eb !important;
-  transform: scale(1.15) !important;
-  box-shadow: 0 0 25px rgba(37, 99, 235, 1) !important;
+.pnlm-hotspot-base:not(.avatarHotspot) .pnlm-sprite {
+  filter: invert(0) !important;
 }
 
-/* Forza sprite della freccia - inversione totale */
-.pnlm-sprite {
-  filter: brightness(0) invert(1) !important;
-  opacity: 1 !important;
-}
-
-.pnlm-scene {
-  background: #3b82f6 !important;
-}
-
-/* Testo tooltip - completamente forzato */
-.pnlm-tooltip span,
-.pnlm-hotspot-text {
-  color: white !important;
-  background: #3b82f6 !important;
-  border: 2px solid white !important;
-  padding: 10px 15px !important;
-  border-radius: 10px !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Container panorama - forza sfondo chiaro */
-.pnlm-container,
-#panorama-container-full,
-.pnlm-render-container {
-  background: transparent !important;
+/* NUVOLA */
+#speechBox {
+  position: absolute;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  border-radius: 12px;
+  max-width: 200px;
+  display: none;
+  z-index: 9999;
+  font-size: 16px;
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
