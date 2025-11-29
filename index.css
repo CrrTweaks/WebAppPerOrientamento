@@ -36,12 +36,14 @@ body {
   pointer-events: none !important;
   background-image: none !important;
 }
+
 .avatarHotspot img {
   position: relative;
   display: inline-block;
   width: 4000px;
   height: auto;
 }
+
 /* Smartphone */
 @media (max-width: 600px) {
   .avatarHotspot img {
@@ -61,6 +63,37 @@ body {
   .avatarHotspot img {
     width: 300px;
   }
+}
+
+/* FORZARE TEMA CHIARO HOTSPOT PANNELLUM - SOLO PER HOTSPOT DI NAVIGAZIONE */
+.pnlm-hotspot:not(.avatarHotspot),
+.pnlm-hotspot-base:not(.avatarHotspot),
+div.pnlm-hotspot:not(.avatarHotspot) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(0, 0, 0, 0.2) !important;
+  color: #000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pnlm-hotspot:not(.avatarHotspot):hover,
+.pnlm-hotspot-base:not(.avatarHotspot):hover,
+div.pnlm-hotspot:not(.avatarHotspot):hover {
+  background-color: rgba(255, 255, 255, 1) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4) !important;
+}
+
+/* Freccia/icona dentro l'hotspot */
+.pnlm-hotspot:not(.avatarHotspot) .pnlm-sprite,
+.pnlm-hotspot-base:not(.avatarHotspot) .pnlm-sprite {
+  filter: invert(0) brightness(0) !important;
+}
+
+/* Testo dentro l'hotspot */
+.pnlm-hotspot:not(.avatarHotspot) span,
+.pnlm-hotspot-base:not(.avatarHotspot) span {
+  color: #000 !important;
+  text-shadow: none !important;
 }
 
 /* NUVOLA */
@@ -110,6 +143,7 @@ body {
     opacity: 1;
   }
 }
+
 /* Animazione dei puntini alternati */
 .talking-dots span:nth-child(1) {
   animation-delay: 0s;
@@ -119,50 +153,4 @@ body {
 }
 .talking-dots span:nth-child(3) {
   animation-delay: 0.4s;
-}
-
-@keyframes blink {
-  0%,
-  80%,
-  100% {
-    opacity: 0.2;
-  }
-  40% {
-    opacity: 1;
-  }
-}
-
-/* FORZARE TEMA CHIARO HOTSPOT PANNELLUM - SOLO PER HOTSPOT DI NAVIGAZIONE */
-.pnlm-hotspot-base:not(.avatarHotspot) {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  border: 2px solid rgba(0, 0, 0, 0.2) !important;
-  color: #000 !important;
-}
-
-.pnlm-hotspot-base:not(.avatarHotspot):hover {
-  background-color: rgba(255, 255, 255, 1) !important;
-  border-color: #38bdf8 !important;
-}
-
-.pnlm-hotspot-base:not(.avatarHotspot) .pnlm-sprite {
-  filter: invert(0) !important;
-}
-
-/* NUVOLA */
-#speechBox {
-  position: absolute;
-  padding: 10px 12px;
-  background: rgba(0, 0, 0, 0.75);
-  color: white;
-  border-radius: 12px;
-  max-width: 200px;
-  display: none;
-  z-index: 9999;
-  font-size: 16px;
-  text-align: center;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
 }
