@@ -131,3 +131,28 @@ body {
     opacity: 1;
   }
 }
+
+/* Fix hotspot visibility - blu con freccia bianca */
+.pnlm-hotspot {
+  background-color: rgba(59, 130, 246, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  color: white !important;
+}
+
+.pnlm-hotspot:hover {
+  background-color: rgba(37, 99, 235, 1) !important;
+}
+
+/* Freccia degli hotspot scene - bianca */
+.pnlm-hotspot.pnlm-sprite.pnlm-scene::after {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Testo degli hotspot - bianco */
+.pnlm-hotspot-text {
+  color: white !important;
+  background-color: rgba(59, 130, 246, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+}
